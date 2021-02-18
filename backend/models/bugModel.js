@@ -25,7 +25,7 @@ const bugSchema = mongoose.Schema({
     type: String,
     enum: ["1 - Critical", "2 - High", "3 - Medium", "4 - Low"],
   },
-  orginalEstimate: {
+  originalEstimate: {
     type: Number,
     required: true,
   },
