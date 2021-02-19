@@ -2,8 +2,7 @@ import { Link } from "react-router-dom";
 import { useState, useEffect } from "react";
 
 const RegisterScreen = () => {
-  const [firstName, setFirstName] = useState("");
-  const [lastName, setLastName] = useState("");
+  const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
@@ -21,29 +20,18 @@ const RegisterScreen = () => {
               <h1>Register</h1>
               <form onSubmit={submitHandler}>
                 <div className="form-group">
-                  <label for="firstnameInput">First Name</label>
+                  <label htmlFor="firstnameInput">Username</label>
                   <input
                     type="text"
                     className="form-control"
                     id="firstnameInput"
-                    placeholder="First name..."
-                    value={firstName}
-                    onChange={(e) => setFirstName(e.target.value)}
+                    placeholder="Username..."
+                    value={username}
+                    onChange={(e) => setUsername(e.target.value)}
                   />
                 </div>
                 <div className="form-group">
-                  <label for="lastnameInput">Last Name</label>
-                  <input
-                    type="text"
-                    className="form-control"
-                    id="lastnameInput"
-                    placeholder="Last name..."
-                    value={lastName}
-                    onChange={(e) => setLastName(e.target.value)}
-                  />
-                </div>
-                <div className="form-group">
-                  <label for="emailInput">Email address</label>
+                  <label htmlFor="emailInput">Email address</label>
                   <input
                     type="email"
                     className="form-control"
@@ -55,7 +43,7 @@ const RegisterScreen = () => {
                   />
                 </div>
                 <div className="form-group">
-                  <label for="passwordInput">Password</label>
+                  <label htmlFor="passwordInput">Password</label>
                   <input
                     type="password"
                     className="form-control"

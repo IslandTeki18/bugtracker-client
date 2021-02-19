@@ -1,13 +1,13 @@
 import { Link } from "react-router-dom";
 import { useState, useEffect } from "react";
 const LoginScreen = () => {
-    const [email, setEmail] = useState("")
-    const [password, setPassword] = useState("")
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
 
-    const submitHandler = (e) => {
-        e.preventDefault()
-        console.log("User Login Action")
-    }
+  const submitHandler = (e) => {
+    e.preventDefault();
+    console.log("User Login Action");
+  };
   return (
     <>
       {/* Login Form Section */}
@@ -18,23 +18,23 @@ const LoginScreen = () => {
               <h1>Login</h1>
               <form onSubmit={submitHandler}>
                 <div className="form-group">
-                  <label for="emailInput">Email address</label>
+                  <label htmlFor="usernameInput">Username</label>
                   <input
                     type="email"
                     className="form-control"
-                    id="emailInput"
-                    aria-describedby="emailHelp"
+                    id="usernameInput"
+                    value={username}
+                    onChange={(e) => setUsername(e.target.value)}
                   />
-                  <small id="emailHelp" className="form-text text-muted">
-                    We'll never share your email with anyone else.
-                  </small>
                 </div>
                 <div className="form-group">
-                  <label for="passwordInput">Password</label>
+                  <label htmlFor="passwordInput">Password</label>
                   <input
                     type="password"
                     className="form-control"
                     id="passwordInput"
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
                   />
                 </div>
                 <button type="submit" className="btn btn-primary">
