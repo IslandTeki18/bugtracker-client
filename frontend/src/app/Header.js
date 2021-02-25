@@ -11,12 +11,12 @@ const Header = () => {
     dispatch(logout());
   };
   return (
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-      <a class="navbar-brand" href="/">
+    <nav className="navbar navbar-expand-lg navbar-dark bg-primary">
+      <a className="navbar-brand" href="/">
         Bug Tracker
       </a>
       <button
-        class="navbar-toggler"
+        className="navbar-toggler"
         type="button"
         data-toggle="collapse"
         data-target="#navbarSupportedContent"
@@ -24,27 +24,27 @@ const Header = () => {
         aria-expanded="false"
         aria-label="Toggle navigation"
       >
-        <span class="navbar-toggler-icon"></span>
+        <span className="navbar-toggler-icon"></span>
       </button>
 
-      <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <ul class="navbar-nav ml-auto">
+      <div className="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul className="navbar-nav ml-auto">
           {userInfo ? (
             <>
-              <li class="nav-item active">
-                <Link class="nav-link" to="/profile">
+              <li className="nav-item active">
+                <Link className="nav-link" to="/profile">
                   Profile
                 </Link>
               </li>
-              <li class="nav-item active">
-                <Link class="nav-link" onClick={logoutHandler} to="/">
+              <li className="nav-item active">
+                <Link className="nav-link" onClick={logoutHandler} to="/">
                   Logout
                 </Link>
               </li>
             </>
           ) : (
-            <li class="nav-item active">
-              <Link class="nav-link" to="/register">
+            <li className="nav-item active">
+              <Link className="nav-link" to="/register">
                 Register
               </Link>
             </li>

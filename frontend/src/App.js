@@ -6,14 +6,16 @@ import Footer from "./app/Footer";
 // import screens
 import LoginScreen from "./screens/LoginScreen";
 import RegisterScreen from "./screens/RegisterScreen";
+import ProfileScreen from "./screens/ProfileScreen";
 
 function App() {
   return (
     <Router>
       <Header />
-      <main>
+      <main className="bg-dark">
         <Route exact path="/" component={LoginScreen} />
         <Route path="/register" component={RegisterScreen} />
+        <Route path="/profile" component={ProfileScreen} />
       </main>
       <Footer />
     </Router>

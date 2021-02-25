@@ -28,13 +28,13 @@ const LoginScreen = ({ history, location }) => {
   return (
     <>
       {/* Login Form Section */}
-      <section className="pt-5">
+      <section className="pt-5 text-white">
         <div className="container">
           <div className="row justify-content-md-center">
             <div className="col-xs-6 col-md-6">
               {loading && <Loader />}
               {error && <Message variant="danger">{error}</Message>}
-              <h1>Login</h1>
+              <h1 className="text-white">Login</h1>
               <form onSubmit={submitHandler}>
                 <div className="form-group">
                   <label htmlFor="usernameInput">Username</label>
@@ -63,7 +63,7 @@ const LoginScreen = ({ history, location }) => {
                 </button>
               </form>
               <p className="pt-5">
-                Don't have an account? <Link to="/register">Register</Link>{" "}
+                Don't have an account? <Link to="/register" className="text-white">Register</Link>{" "}
                 here!
               </p>
             </div>
