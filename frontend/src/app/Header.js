@@ -1,5 +1,15 @@
 import { Link } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { logout } from "../actions/userActions";
+
 const Header = () => {
+  const dispatch = useDispatch();
+  const userLogin = useSelector((state) => state.userLogin);
+  const { userInfo } = userLogin;
+
+  const logoutHandler = () => {
+    dispatch(logout());
+  };
   return (
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
       <a class="navbar-brand" href="/">
@@ -19,11 +29,26 @@ const Header = () => {
 
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav ml-auto">
-          <li class="nav-item active">
-            <Link class="nav-link" href="#">
-              Register
-            </Link>
-          </li>
+          {userInfo ? (
+            <>
+              <li class="nav-item active">
+                <Link class="nav-link" to="/profile">
+                  Profile
+                </Link>
+              </li>
+              <li class="nav-item active">
+                <Link class="nav-link" onClick={logoutHandler} to="/">
+                  Logout
+                </Link>
+              </li>
+            </>
+          ) : (
+            <li class="nav-item active">
+              <Link class="nav-link" to="/register">
+                Register
+              </Link>
+            </li>
+          )}
         </ul>
       </div>
     </nav>

@@ -1,12 +1,29 @@
 import { Link } from "react-router-dom";
 import { useState, useEffect } from "react";
-const LoginScreen = () => {
+import { login } from "../actions/userActions";
+import { useDispatch, useSelector } from "react-redux";
+import Loader from "../components/Loader";
+import Message from "../components/Message";
+
+const LoginScreen = ({ history, location }) => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const dispatch = useDispatch();
+
+  const userLogin = useSelector((state) => state.userLogin);
+  const { loading, error, userInfo } = userLogin;
+
+  const redirect = location.search ? location.search.split("=")[1] : "/profile";
+
+  useEffect(() => {
+    if (userInfo) {
+      history.push(redirect);
+    }
+  }, [userInfo, redirect, history]);
 
   const submitHandler = (e) => {
     e.preventDefault();
-    console.log("User Login Action");
+    dispatch(login(username, password));
   };
   return (
     <>
@@ -15,13 +32,16 @@ const LoginScreen = () => {
         <div className="container">
           <div className="row justify-content-md-center">
             <div className="col-xs-6 col-md-6">
+              {loading && <Loader />}
+              {error && <Message variant="danger">{error}</Message>}
               <h1>Login</h1>
               <form onSubmit={submitHandler}>
                 <div className="form-group">
                   <label htmlFor="usernameInput">Username</label>
                   <input
-                    type="email"
+                    type="text"
                     className="form-control"
+                    placeholder="Username..."
                     id="usernameInput"
                     value={username}
                     onChange={(e) => setUsername(e.target.value)}
@@ -32,6 +52,7 @@ const LoginScreen = () => {
                   <input
                     type="password"
                     className="form-control"
+                    placeholder="Password..."
                     id="passwordInput"
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
