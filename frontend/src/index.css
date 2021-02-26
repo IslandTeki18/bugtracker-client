@@ -3,14 +3,7 @@ main {
 }
 
 /* Profile Screen - Issue Cards - Start */
-.icon-wrapper {
-  width: 100px;
-  height: 100px;
-  border-radius: 50%;
-}
-.icon-font-styles {
-  font-size: 40px;
-  color: #ffffff;
-  align-self: center;
+.table {
+  table-layout: fixed;
 }
 /* Profile Screen - Issue Cards - End */
