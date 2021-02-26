@@ -1,9 +1,45 @@
 import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { createBug } from "../actions/bugActions";
+import Loader from "../components/Loader";
+import Message from "../components/Message";
+import { BUG_CREATE_RESET } from "../constants/bugConstants";
 
-const ProfileScreen = () => {
+const ProfileScreen = ({ history }) => {
+  const dispatch = useDispatch();
+
+  const bugCreate = useSelector((state) => state.bugCreate);
+  const {
+    loading: createLoading,
+    error: createError,
+    success: createSuccess,
+    bug,
+  } = bugCreate;
+
+  const userLogin = useSelector((state) => state.userLogin);
+  const { userInfo } = userLogin;
+
   useEffect(() => {
+    dispatch({ type: BUG_CREATE_RESET });
+
+    // if user is not logged in
+    if (!userInfo) {
+      history.push("/login");
+    }
+
+    // auto scroll to top of page onload
     window.scrollTo(0, 0);
-  }, []);
+
+    // if create success, go to the new bug edit page
+    if (createSuccess) {
+      history.push(`/profile/bug/${bug._id}/edit`);
+    }
+  }, [createSuccess, history, bug, userInfo, dispatch]);
+
+  const createBugHandler = (e) => {
+    e.preventDefault();
+    dispatch(createBug());
+  };
   return (
     <>
       {/* Profile Controls */}
@@ -14,9 +50,14 @@ const ProfileScreen = () => {
               <h3 className="text-white pr-4">User Dashboard</h3>
               <button className="btn btn-light btn-sm">Settings</button>
             </div>
-            
+
             <div className="col-md-6 text-right">
-              <button className="btn btn-primary btn-sm">Add Bug</button>
+              <button
+                className="btn btn-primary btn-sm"
+                onClick={createBugHandler}
+              >
+                Add Bug
+              </button>
             </div>
           </div>
         </div>
@@ -26,11 +67,15 @@ const ProfileScreen = () => {
         <div className="container">
           <div className="row">
             <div className="col-md-12">
+              {createLoading && <Loader />}
+              {createError && <Message variant="danger">{createError}</Message>}
               <div className="table-responsive">
                 <table className="table table-hover table-borderless table-dark table-sm">
                   <thead className="thead-light">
                     <tr>
-                      <th scope="col" style={{width: "80px"}}>ID #</th>
+                      <th scope="col" style={{ width: "80px" }}>
+                        ID #
+                      </th>
                       <th scope="col">Title</th>
                       <th scope="col">Status</th>
                       <th scope="col">Project</th>
@@ -61,10 +106,14 @@ const ProfileScreen = () => {
                         <button className="btn btn-info btn-sm">Edit</button>
                       </td>
                       <td className="text-truncate">
-                        <button className="btn btn-light btn-light btn-sm">View</button>
+                        <button className="btn btn-light btn-light btn-sm">
+                          View
+                        </button>
                       </td>
                       <td className="text-truncate">
-                        <button className="btn btn-danger btn-sm">Delete</button>
+                        <button className="btn btn-danger btn-sm">
+                          Delete
+                        </button>
                       </td>
                     </tr>
                   </tbody>

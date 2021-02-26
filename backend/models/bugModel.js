@@ -41,7 +41,6 @@ const bugSchema = mongoose.Schema({
   comments: {
     user: {
       type: mongoose.Schema.Types.ObjectId,
-      required: true,
       ref: "User",
     },
     body: {
