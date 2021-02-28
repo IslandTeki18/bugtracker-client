@@ -43,7 +43,7 @@ const getBugDetails = asyncHandler(async (req, res) => {
     return res.json(bug);
   } else {
     res.status(404);
-    throw new Error("Bug not found");
+    throw new Error("Item not found");
   }
 });
 
@@ -54,5 +54,15 @@ const getBugDetails = asyncHandler(async (req, res) => {
 //@desc     Delete a bug by ID
 //@route    DELETE /api/bugs/:id
 //@access   Private
+const deleteBugById = asyncHandler(async (req, res) => {
+  const bug = await Bug.findById(req.params.id);
+  if (bug) {
+    await bug.remove();
+    res.json({ message: "Item Removed!" });
+  } else {
+    res.status(404);
+    throw new Error("Item not found");
+  }
+});
 
-export { getUserBugs, postCreateBug, getBugDetails };
+export { getUserBugs, postCreateBug, getBugDetails, deleteBugById };

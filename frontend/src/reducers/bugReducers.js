@@ -9,6 +9,9 @@ import {
   BUG_DETAILS_REQUEST,
   BUG_DETAILS_SUCCESS,
   BUG_DETAILS_FAIL,
+  BUG_DELETE_REQUEST,
+  BUG_DELETE_SUCCESS,
+  BUG_DELETE_FAIL,
 } from "../constants/bugConstants";
 
 export const bugCreateReducer = (state = {}, action) => {
@@ -51,6 +54,20 @@ export const bugDetailsReducer = (
     case BUG_DETAILS_SUCCESS:
       return { loading: false, bug: action.payload };
     case BUG_DETAILS_FAIL:
+      return { loading: false, error: action.payload };
+
+    default:
+      return state;
+  }
+};
+
+export const bugDeleteReducer = (state = {}, action) => {
+  switch (action.type) {
+    case BUG_DELETE_REQUEST:
+      return { loading: true };
+    case BUG_DELETE_SUCCESS:
+      return { loading: false, success: true };
+    case BUG_DELETE_FAIL:
       return { loading: false, error: action.payload };
 
     default:

@@ -8,6 +8,9 @@ import {
   BUG_DETAILS_REQUEST,
   BUG_DETAILS_SUCCESS,
   BUG_DETAILS_FAIL,
+  BUG_DELETE_FAIL,
+  BUG_DELETE_REQUEST,
+  BUG_DELETE_SUCCESS,
 } from "../constants/bugConstants";
 import axios from "axios";
 
@@ -76,6 +79,28 @@ export const listBugDetails = (id) => async (dispatch, getState) => {
   } catch (error) {
     dispatch({
       type: BUG_DETAILS_FAIL,
+      payload:
+        error.response && error.response.data.message
+          ? error.response.data.message
+          : error.message,
+    });
+  }
+};
+
+export const deleteBug = (id) => async (dispatch, getState) => {
+  try {
+    dispatch({ type: BUG_DELETE_REQUEST });
+    const {
+      userLogin: { userInfo },
+    } = getState();
+    const config = {
+      headers: { Authorization: `Bearer ${userInfo.token}` },
+    };
+    await axios.delete(`/api/bugs/${id}`, config);
+    dispatch({ type: BUG_DELETE_SUCCESS });
+  } catch (error) {
+    dispatch({
+      type: BUG_DELETE_FAIL,
       payload:
         error.response && error.response.data.message
           ? error.response.data.message
