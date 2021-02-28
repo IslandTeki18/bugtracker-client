@@ -1,6 +1,7 @@
 import { useEffect } from "react";
+import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { createBug } from "../actions/bugActions";
+import { createBug, listBugs } from "../actions/bugActions";
 import Loader from "../components/Loader";
 import Message from "../components/Message";
 import { BUG_CREATE_RESET } from "../constants/bugConstants";
@@ -13,31 +14,32 @@ const ProfileScreen = ({ history }) => {
     loading: createLoading,
     error: createError,
     success: createSuccess,
-    bug,
+    bug: createdBug,
   } = bugCreate;
 
   const userLogin = useSelector((state) => state.userLogin);
   const { userInfo } = userLogin;
 
+  const bugList = useSelector((state) => state.bugList);
+  const { loading, error, bugs } = bugList;
+
   useEffect(() => {
     dispatch({ type: BUG_CREATE_RESET });
-
     // if user is not logged in
     if (!userInfo) {
       history.push("/login");
     }
-
     // auto scroll to top of page onload
     window.scrollTo(0, 0);
-
     // if create success, go to the new bug edit page
     if (createSuccess) {
-      history.push(`/profile/bug/${bug._id}/edit`);
+      history.push(`/bug/${createdBug._id}`);
+    } else {
+      dispatch(listBugs());
     }
-  }, [createSuccess, history, bug, userInfo, dispatch]);
+  }, [createSuccess, history, createdBug, userInfo, dispatch]);
 
-  const createBugHandler = (e) => {
-    e.preventDefault();
+  const createBugHandler = () => {
     dispatch(createBug());
   };
   return (
@@ -50,7 +52,6 @@ const ProfileScreen = ({ history }) => {
               <h3 className="text-white pr-4">User Dashboard</h3>
               <button className="btn btn-light btn-sm">Settings</button>
             </div>
-
             <div className="col-md-6 text-right">
               <button
                 className="btn btn-primary btn-sm"
@@ -69,6 +70,8 @@ const ProfileScreen = ({ history }) => {
             <div className="col-md-12">
               {createLoading && <Loader />}
               {createError && <Message variant="danger">{createError}</Message>}
+              {loading && <Loader />}
+              {error && <Message variant="danger">{error}</Message>}
               <div className="table-responsive">
                 <table className="table table-hover table-borderless table-dark table-sm">
                   <thead className="thead-light">
@@ -89,33 +92,54 @@ const ProfileScreen = ({ history }) => {
                     </tr>
                   </thead>
                   <tbody>
-                    <tr>
-                      <th scope="row" className="text-truncate">
-                        1
-                      </th>
-                      <td className="text-truncate">Login Function</td>
-                      <td className="text-truncate">Active</td>
-                      <td className="text-truncate">StackTrace</td>
-                      <td className="text-truncate">
-                        <span className="badge badge-success">BUG</span>
-                      </td>
-                      <td className="text-truncate">Landon</td>
-                      <td className="text-truncate">02/24/2021</td>
-                      <td className="text-truncate"></td>
-                      <td className="text-truncate">
-                        <button className="btn btn-info btn-sm">Edit</button>
-                      </td>
-                      <td className="text-truncate">
-                        <button className="btn btn-light btn-light btn-sm">
-                          View
-                        </button>
-                      </td>
-                      <td className="text-truncate">
-                        <button className="btn btn-danger btn-sm">
-                          Delete
-                        </button>
-                      </td>
-                    </tr>
+                    {bugs.map((bug, idx) => (
+                      <tr key={idx}>
+                        <th scope="row" className="text-truncate">
+                          {bug._id}
+                        </th>
+                        <td className="text-truncate">{bug.title}</td>
+                        <td className="text-truncate">{bug.status}</td>
+                        <td className="text-truncate">StackTrace</td>
+                        <td className="text-truncate">
+                          <span
+                            className={`badge badge-${
+                              bug.type === "Bug"
+                                ? "success"
+                                : bug.type === "Issue"
+                                ? "warning"
+                                : bug.type === "Design"
+                                ? "info"
+                                : bug.type === "Test Case"
+                                ? "light"
+                                : "primary"
+                            }`}
+                          >
+                            BUG
+                          </span>
+                        </td>
+                        <td className="text-truncate">{bug.assignedTo}</td>
+                        <td className="text-truncate">{bug.createdAt}</td>
+                        <td className="text-truncate"></td>
+                        <td className="text-truncate">
+                          <Link className="btn btn-link" to={`/bug/${bug._id}`}>
+                            <i className="fas fa-eye profile-icon"></i>
+                          </Link>
+                        </td>
+                        <td className="text-truncate">
+                          <Link
+                            className="btn btn-link"
+                            to={`/bug/${bug._id}/edit`}
+                          >
+                            <i className="far fa-edit profile-icon-edit"></i>
+                          </Link>
+                        </td>
+                        <td className="text-truncate">
+                          <button className="btn btn-link">
+                            <i className="fas fa-trash profile-icon-trash"></i>
+                          </button>
+                        </td>
+                      </tr>
+                    ))}
                   </tbody>
                 </table>
               </div>

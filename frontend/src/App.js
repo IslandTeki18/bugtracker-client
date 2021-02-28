@@ -7,6 +7,7 @@ import Footer from "./app/Footer";
 import LoginScreen from "./screens/LoginScreen";
 import RegisterScreen from "./screens/RegisterScreen";
 import ProfileScreen from "./screens/ProfileScreen";
+import BugDetailsScreen from "./screens/BugDetailsScreen";
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
         <Route exact path="/" component={LoginScreen} />
         <Route path="/register" component={RegisterScreen} />
         <Route path="/profile" component={ProfileScreen} />
+        <Route exact path="/bug/:id" component={BugDetailsScreen} />
       </main>
       <Footer />
     </Router>

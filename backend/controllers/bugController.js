@@ -5,35 +5,47 @@ import Bug from "../models/bugModel.js";
 //@route    GET /api/bugs
 //@access   Private
 const getUserBugs = asyncHandler(async (req, res) => {
-   const bugs = await Bug.find({ user: req.user._id})
-   res.json(bugs)
-})
+  const bugs = await Bug.find({});
+  res.json(bugs);
+});
 
 //@desc     Create new bug issue
 //@route    POST /api/bugs
 //@access   Private
 const postCreateBug = asyncHandler(async (req, res) => {
-   const bug = new Bug({
-      title: "Sample Bug Title",
-      reproSteps: "",
-      desc: "",
-      status: "New",
-      assignmentTo: "",
-      priority: 4,
-      severity: "1 - Critical",
-      originalEstimate: 0,
-      remainging: 0,
-      hoursSpent: 0,
-      levelOfEffort: 1,
-   })
+  const bug = new Bug({
+    user: req.user._id,
+    title: "Sample Bug Title",
+    reproSteps: "",
+    type: "Bug",
+    project: "",
+    desc: "",
+    status: "New",
+    assignmentTo: "",
+    priority: 4,
+    severity: "1 - Critical",
+    originalEstimate: 0,
+    remainging: 0,
+    hoursSpent: 0,
+    levelOfEffort: 1,
+  });
 
-   await bug.save()
-   res.status(201).json(bug)
-})
+  await bug.save();
+  res.status(201).json(bug);
+});
 
 //@desc     Get bug details by ID
 //@route    GET /api/bugs/:id
 //@access   Private
+const getBugDetails = asyncHandler(async (req, res) => {
+  const bug = await Bug.findById(req.params.id);
+  if (bug) {
+    return res.json(bug);
+  } else {
+    res.status(404);
+    throw new Error("Bug not found");
+  }
+});
 
 //@desc     Update a bug by ID
 //@route    PUT /api/bugs/:id
@@ -43,5 +55,4 @@ const postCreateBug = asyncHandler(async (req, res) => {
 //@route    DELETE /api/bugs/:id
 //@access   Private
 
-
-export {getUserBugs, postCreateBug}
+export { getUserBugs, postCreateBug, getBugDetails };

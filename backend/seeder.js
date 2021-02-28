@@ -1,6 +1,7 @@
 import dotenv from "dotenv";
 import users from "./tempdata/users.js";
 import User from "./models/userModel.js";
+import Bug from "./models/bugModel.js";
 import connectDB from "./config/db.js";
 
 dotenv.config();
@@ -9,6 +10,7 @@ connectDB();
 const importData = async () => {
   try {
     await User.deleteMany();
+    await Bug.deleteMany();
 
     await User.insertMany(users);
 
@@ -23,6 +25,7 @@ const importData = async () => {
 const destroyData = async () => {
   try {
     await User.deleteMany();
+    await Bug.deleteMany();
 
     console.log("Data Destroyed!");
 
