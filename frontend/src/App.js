@@ -8,6 +8,7 @@ import LoginScreen from "./screens/LoginScreen";
 import RegisterScreen from "./screens/RegisterScreen";
 import ProfileScreen from "./screens/ProfileScreen";
 import BugDetailsScreen from "./screens/BugDetailsScreen";
+import BugEditScreen from "./screens/BugEditScreen";
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
         <Route path="/register" component={RegisterScreen} />
         <Route path="/profile" component={ProfileScreen} />
         <Route exact path="/bug/:id" component={BugDetailsScreen} />
+        <Route exact path="/bug/:id/edit" component={BugEditScreen} />
       </main>
       <Footer />
     </Router>
