@@ -25,7 +25,6 @@ const BugEditScreen = ({ match, history }) => {
   const remainingRange = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
   const hoursSpentRange = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
   const levelOfEffortRange = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
-  const [message, setMessage] = useState("");
 
   const dispatch = useDispatch();
 
@@ -38,14 +37,6 @@ const BugEditScreen = ({ match, history }) => {
     error: updateError,
     success: updateSuccess,
   } = bugUpdate;
-
-  useEffect(() => {
-    // if Remaining Hours is GT the Original Estimate, throw error
-    // if Hours Spent is GT the Remaining hours, throw error
-    if (remaining > originalEstimate) {
-      setMessage("Remaining hours can't be greater than Original Estimate");
-    }
-  }, [remaining, originalEstimate, hoursSpent]);
 
   useEffect(() => {
     if (updateSuccess) {
@@ -360,7 +351,6 @@ const BugEditScreen = ({ match, history }) => {
                       </select>
                     </div>
                     <div className="mb-3">
-                      {message && <Message variant="danger">{message}</Message>}
                       <button
                         className="btn btn-primary btn-block"
                         onClick={submitHandler}

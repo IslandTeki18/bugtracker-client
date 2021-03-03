@@ -3,6 +3,12 @@ main {
 }
 
 /* Profile Screen - Start */
+.bug-card {
+  width: 32rem;
+  background-color: rgb(87 107 128);
+  border-radius: 3%;
+}
+
 .table {
   table-layout: fixed;
 }

@@ -62,7 +62,7 @@ const BugDetailsScreen = ({ history, match }) => {
                 <p className="pt-2 text-white">
                   Repro Steps: <br />
                   <br />
-                  {bug.repoSteps}
+                  {bug.reproSteps}
                 </p>
               </div>
               <div className="col-md-4">

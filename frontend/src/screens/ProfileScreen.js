@@ -90,82 +90,65 @@ const ProfileScreen = ({ history }) => {
               ) : error ? (
                 <Message variant="danger">{error}</Message>
               ) : (
-                <div className="table-responsive">
-                  <table className="table table-hover table-borderless table-dark table-sm">
-                    <thead className="thead-light">
-                      <tr>
-                        <th scope="col" style={{ width: "80px" }}>
-                          ID #
-                        </th>
-                        <th scope="col">Title</th>
-                        <th scope="col">Status</th>
-                        <th scope="col">Project</th>
-                        <th scope="col">Type</th>
-                        <th scope="col">Assigned</th>
-                        <th scope="col">Created</th>
-                        <th scope="col">Finished</th>
-                        <th scope="col"></th>
-                        <th scope="col"></th>
-                        <th scope="col"></th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      {bugs.map((bug, idx) => (
-                        <tr key={idx}>
-                          <th scope="row" className="text-truncate">
-                            {bug._id}
-                          </th>
-                          <td className="text-truncate">{bug.title}</td>
-                          <td className="text-truncate">{bug.status}</td>
-                          <td className="text-truncate">StackTrace</td>
-                          <td className="text-truncate">
-                            <span
-                              className={`badge badge-${
-                                bug.type === "Bug"
-                                  ? "success"
-                                  : bug.type === "Issue"
-                                  ? "warning"
-                                  : bug.type === "Design"
-                                  ? "info"
-                                  : bug.type === "Test Case"
-                                  ? "light"
-                                  : "primary"
-                              }`}
-                            >
-                              {bug.type}
-                            </span>
-                          </td>
-                          <td className="text-truncate">{bug.assignedTo}</td>
-                          <td className="text-truncate">{bug.createdAt}</td>
-                          <td className="text-truncate"></td>
-                          <td className="text-truncate">
+                <div className="d-flex">
+                  {bugs.map((bug) => (
+                    <div className="mr-5 bug-card">
+                      <div className="card-body text-white">
+                        <div className="row">
+                          <div className="col-md-8">
+                            <h4 className="text-white">{bug.title}</h4>
+                            <div className="d-flex">
+                              <p className="mr-3">
+                                ID: {bug._id.substring(0, 5)}
+                              </p>
+                              <p>Assigned To: {bug.assignmentTo}</p>
+                            </div>
+                            <div className="d-flex">
+                              <p className="mr-5">Status: {bug.status}</p>
+                              <p>
+                                Type:{" "}
+                                <span
+                                  className={`badge badge-${
+                                    bug.type === "Bug"
+                                      ? "success"
+                                      : bug.type === "Issue"
+                                      ? "warning"
+                                      : bug.type === "Design"
+                                      ? "info"
+                                      : bug.type === "Test Case"
+                                      ? "light"
+                                      : "primary"
+                                  }`}
+                                >
+                                  {bug.type}
+                                </span>
+                              </p>
+                            </div>
+                          </div>
+                          <div className="col-md-4">
                             <Link
-                              className="btn btn-link"
+                              className="btn btn-light btn-block"
                               to={`/bug/${bug._id}`}
                             >
-                              <i className="fas fa-eye profile-icon"></i>
+                              View
                             </Link>
-                          </td>
-                          <td className="text-truncate">
                             <Link
-                              className="btn btn-link"
+                              className="btn btn-info btn-block"
                               to={`/bug/${bug._id}/edit`}
                             >
-                              <i className="far fa-edit profile-icon-edit"></i>
+                              Edit
                             </Link>
-                          </td>
-                          <td className="text-truncate">
                             <button
-                              className="btn btn-link"
+                              className="btn btn-danger btn-block"
                               onClick={() => deleteBugHandler(bug._id)}
                             >
-                              <i className="fas fa-trash profile-icon-trash"></i>
+                              Delete
                             </button>
-                          </td>
-                        </tr>
-                      ))}
-                    </tbody>
-                  </table>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  ))}
                 </div>
               )}
             </div>
