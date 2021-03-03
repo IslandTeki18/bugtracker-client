@@ -1,4 +1,4 @@
-# Personal Web Developer Portfolio
+# A simple bug tracker built with the MERN stack
 
 > Coding bug tracker that allows users to log in bugs and issues with their current projects
 
