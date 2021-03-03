@@ -132,7 +132,7 @@ const ProfileScreen = ({ history }) => {
                                   : "primary"
                               }`}
                             >
-                              BUG
+                              {bug.type}
                             </span>
                           </td>
                           <td className="text-truncate">{bug.assignedTo}</td>

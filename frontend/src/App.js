@@ -19,7 +19,7 @@ function App() {
         <Route path="/register" component={RegisterScreen} />
         <Route path="/profile" component={ProfileScreen} />
         <Route exact path="/bug/:id" component={BugDetailsScreen} />
-        <Route exact path="/bug/:id/edit" component={BugEditScreen} />
+        <Route path="/bug/:id/edit" component={BugEditScreen} />
       </main>
       <Footer />
     </Router>

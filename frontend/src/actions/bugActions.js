@@ -11,6 +11,9 @@ import {
   BUG_DELETE_FAIL,
   BUG_DELETE_REQUEST,
   BUG_DELETE_SUCCESS,
+  BUG_UPDATE_SUCCESS,
+  BUG_UPDATE_REQUEST,
+  BUG_UPDATE_FAIL,
 } from "../constants/bugConstants";
 import axios from "axios";
 
@@ -101,6 +104,31 @@ export const deleteBug = (id) => async (dispatch, getState) => {
   } catch (error) {
     dispatch({
       type: BUG_DELETE_FAIL,
+      payload:
+        error.response && error.response.data.message
+          ? error.response.data.message
+          : error.message,
+    });
+  }
+};
+
+export const updateBug = (bug) => async (dispatch, getState) => {
+  try {
+    dispatch({ type: BUG_UPDATE_REQUEST });
+    const {
+      userLogin: { userInfo },
+    } = getState();
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${userInfo.token}`,
+      },
+    };
+    const { data } = await axios.put(`/api/bugs/${bug._id}`, bug, config);
+    dispatch({ type: BUG_UPDATE_SUCCESS, payload: data });
+  } catch (error) {
+    dispatch({
+      type: BUG_UPDATE_FAIL,
       payload:
         error.response && error.response.data.message
           ? error.response.data.message

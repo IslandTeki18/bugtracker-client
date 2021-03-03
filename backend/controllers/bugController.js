@@ -25,7 +25,7 @@ const postCreateBug = asyncHandler(async (req, res) => {
     priority: 4,
     severity: "1 - Critical",
     originalEstimate: 0,
-    remainging: 0,
+    remaining: 0,
     hoursSpent: 0,
     levelOfEffort: 1,
   });
@@ -50,6 +50,47 @@ const getBugDetails = asyncHandler(async (req, res) => {
 //@desc     Update a bug by ID
 //@route    PUT /api/bugs/:id
 //@access   Private
+const putBugById = asyncHandler(async (req, res) => {
+  const {
+    title,
+    project,
+    type,
+    reproSteps,
+    desc,
+    status,
+    assignmentTo,
+    priority,
+    severity,
+    originalEstimate,
+    remaining,
+    hoursSpent,
+    levelOfEffort,
+  } = req.body;
+
+  const bug = await Bug.findById(req.params.id);
+
+  if (bug) {
+    bug.title = title;
+    bug.project = project;
+    bug.type = type;
+    bug.reproSteps = reproSteps;
+    bug.desc = desc;
+    bug.status = status;
+    bug.assignmentTo = assignmentTo;
+    bug.priority = priority;
+    bug.severity = severity;
+    bug.originalEstimate = originalEstimate;
+    bug.remaining = remaining;
+    bug.hoursSpent = hoursSpent;
+    bug.levelOfEffort = levelOfEffort;
+
+    const updatedBug = await bug.save();
+    res.json(updatedBug);
+  } else {
+    res.status(404);
+    throw new Error("Bug not found");
+  }
+});
 
 //@desc     Delete a bug by ID
 //@route    DELETE /api/bugs/:id
@@ -65,4 +106,4 @@ const deleteBugById = asyncHandler(async (req, res) => {
   }
 });
 
-export { getUserBugs, postCreateBug, getBugDetails, deleteBugById };
+export { getUserBugs, postCreateBug, getBugDetails, deleteBugById, putBugById };

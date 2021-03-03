@@ -55,8 +55,15 @@ const BugDetailsScreen = ({ history, match }) => {
                   <h6 className="text-white mr-5">Type: {bug.type}</h6>
                   <h6 className="text-white">Project: {bug.project}</h6>
                 </div>
-                <p className="pt-2 text-white">{bug.desc}</p>
-                <p className="pt-2 text-white">Description: {bug.repoSteps}</p>
+                <p className="pt-2 text-white">
+                  Description: <br />
+                  <br /> {bug.desc}
+                </p>
+                <p className="pt-2 text-white">
+                  Repro Steps: <br />
+                  <br />
+                  {bug.repoSteps}
+                </p>
               </div>
               <div className="col-md-4">
                 <ul>
