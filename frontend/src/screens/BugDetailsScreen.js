@@ -59,11 +59,13 @@ const BugDetailsScreen = ({ history, match }) => {
                   Description: <br />
                   <br /> {bug.desc}
                 </p>
-                <p className="pt-2 text-white">
-                  Repro Steps: <br />
-                  <br />
-                  {bug.reproSteps}
-                </p>
+                {bug.reproSteps === "" ? null : (
+                  <p className="pt-2 text-white">
+                    Repro Steps: <br />
+                    <br />
+                    {bug.reproSteps}
+                  </p>
+                )}
               </div>
               <div className="col-md-4">
                 <ul>

@@ -1,7 +1,7 @@
 const Message = ({ variant, children }) => {
   return (
     <div>
-      <div className={`alert alert-${variant}`} role="alert">
+      <div className={`alert alert-${variant} alert-dismissible`} role="alert">
         {children}
       </div>
     </div>

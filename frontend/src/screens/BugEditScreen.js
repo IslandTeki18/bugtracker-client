@@ -230,12 +230,10 @@ const BugEditScreen = ({ match, history }) => {
                         onChange={(e) => setPriority(e.target.value)}
                       >
                         <option defaultValue>Select Priority Level</option>
-                        {priorityRange.map((x) => (
-                          <>
-                            <option key={x} value={x}>
-                              {x}
-                            </option>
-                          </>
+                        {priorityRange.map((x, idx) => (
+                          <option key={idx} value={x}>
+                            {x}
+                          </option>
                         ))}
                       </select>
                     </div>
@@ -277,8 +275,8 @@ const BugEditScreen = ({ match, history }) => {
                         <option defaultValue>
                           Select Original Estimate Time
                         </option>
-                        {originalEstimateRange.map((x) => (
-                          <option key={x} value={x}>
+                        {originalEstimateRange.map((x, idx) => (
+                          <option key={idx} value={x}>
                             {x}
                           </option>
                         ))}
@@ -299,8 +297,8 @@ const BugEditScreen = ({ match, history }) => {
                         onChange={(e) => setHoursSpent(e.target.value)}
                       >
                         <option defaultValue>Select Hours Spent</option>
-                        {hoursSpentRange.map((x) => (
-                          <option key={x} value={x}>
+                        {hoursSpentRange.map((x, idx) => (
+                          <option key={idx} value={x}>
                             {x}
                           </option>
                         ))}
@@ -321,8 +319,8 @@ const BugEditScreen = ({ match, history }) => {
                         onChange={(e) => setRemaining(e.target.value)}
                       >
                         <option defaultValue>Select Remaining Time</option>
-                        {remainingRange.map((x) => (
-                          <option key={x} value={x}>
+                        {remainingRange.map((x, idx) => (
+                          <option key={idx} value={x}>
                             {x}
                           </option>
                         ))}
@@ -343,8 +341,8 @@ const BugEditScreen = ({ match, history }) => {
                         onChange={(e) => setLevelOfEffort(e.target.value)}
                       >
                         <option defaultValue>Select Level of Effort</option>
-                        {levelOfEffortRange.map((x) => (
-                          <option key={x} value={x}>
+                        {levelOfEffortRange.map((x, idx) => (
+                          <option key={idx} value={x}>
                             {x}
                           </option>
                         ))}

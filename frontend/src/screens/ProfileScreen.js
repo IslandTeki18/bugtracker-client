@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { createBug, listBugs, deleteBug } from "../actions/bugActions";
 import Loader from "../components/Loader";
 import Message from "../components/Message";
+import moment from "moment";
 import { BUG_CREATE_RESET } from "../constants/bugConstants";
 
 const ProfileScreen = ({ history }) => {
@@ -79,19 +80,19 @@ const ProfileScreen = ({ history }) => {
       {/* Bug List Table */}
       <section className="p-3" id="bug-list-table">
         <div className="container">
-          <div className="row">
-            <div className="col-md-12">
-              {createLoading && <Loader />}
-              {createError && <Message variant="danger">{createError}</Message>}
-              {deleteLoading && <Loader />}
-              {deleteError && <Message variant="danger">{deleteError}</Message>}
-              {loading ? (
-                <Loader />
-              ) : error ? (
-                <Message variant="danger">{error}</Message>
-              ) : (
-                <div className="d-flex">
-                  {bugs.map((bug) => (
+          {createLoading && <Loader />}
+          {createError && <Message variant="danger">{createError}</Message>}
+          {deleteLoading && <Loader />}
+          {deleteError && <Message variant="danger">{deleteError}</Message>}
+          {loading ? (
+            <Loader />
+          ) : error ? (
+            <Message variant="danger">{error}</Message>
+          ) : (
+            <>
+              <div className="row">
+                {bugs.map((bug, idx) => (
+                  <div className="col-sm-12 col-md-6 mb-3" key={idx}>
                     <div className="mr-5 bug-card">
                       <div className="card-body text-white">
                         <div className="row">
@@ -99,12 +100,34 @@ const ProfileScreen = ({ history }) => {
                             <h4 className="text-white">{bug.title}</h4>
                             <div className="d-flex">
                               <p className="mr-3">
-                                ID: {bug._id.substring(0, 5)}
+                                ID:{" "}
+                                <span className="badge badge-dark">
+                                  {bug._id.substring(0, 5)}
+                                </span>
                               </p>
-                              <p>Assigned To: {bug.assignmentTo}</p>
+                              <p>
+                                Assigned To:{" "}
+                                <span className="badge badge-dark">
+                                  {bug.assignmentTo}
+                                </span>
+                              </p>
                             </div>
                             <div className="d-flex">
-                              <p className="mr-5">Status: {bug.status}</p>
+                              <p className="mr-2">
+                                Status:{" "}
+                                <span
+                                  className={`badge badge-${
+                                    bug.status === "Closed" ||
+                                    bug.status === "Resolved"
+                                      ? "success"
+                                      : bug.status === "Active"
+                                      ? "info"
+                                      : "dark"
+                                  }`}
+                                >
+                                  {bug.status}
+                                </span>
+                              </p>
                               <p>
                                 Type:{" "}
                                 <span
@@ -121,6 +144,20 @@ const ProfileScreen = ({ history }) => {
                                   }`}
                                 >
                                   {bug.type}
+                                </span>
+                              </p>
+                            </div>
+                            <div className="d-flex">
+                              <p>
+                                Project:{" "}
+                                <span class="badge badge-dark">
+                                  {bug.project}
+                                </span>
+                              </p>
+                              <p>
+                                Created:{" "}
+                                <span class="badge badge-dark">
+                                  {moment(bug.createdAt).calendar()}
                                 </span>
                               </p>
                             </div>
@@ -148,11 +185,11 @@ const ProfileScreen = ({ history }) => {
                         </div>
                       </div>
                     </div>
-                  ))}
-                </div>
-              )}
-            </div>
-          </div>
+                  </div>
+                ))}
+              </div>
+            </>
+          )}
         </div>
       </section>
     </>
