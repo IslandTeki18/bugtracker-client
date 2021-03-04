@@ -134,10 +134,11 @@ const ProfileScreen = ({ history }) => {
                                   className={`badge badge-${
                                     bug.type === "Bug"
                                       ? "success"
-                                      : bug.type === "Issue"
+                                      : bug.type === "Issue" ||
+                                        bug.type === "Task"
                                       ? "warning"
                                       : bug.type === "Design"
-                                      ? "info"
+                                      ? "info" 
                                       : bug.type === "Test Case"
                                       ? "light"
                                       : "primary"

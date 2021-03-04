@@ -143,6 +143,7 @@ const BugEditScreen = ({ match, history }) => {
                         <option value="Issue">Issue</option>
                         <option value="Design">Design</option>
                         <option value="Test Case">Test Case</option>
+                        <option value="Task">Task</option>
                       </select>
                       <label
                         htmlFor="statusInputField"

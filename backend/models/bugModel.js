@@ -15,7 +15,7 @@ const bugSchema = mongoose.Schema(
     },
     type: {
       type: String,
-      enum: ["Bug", "Issue", "Design", "Test Case"],
+      enum: ["Bug", "Issue", "Design", "Test Case", "Task"],
       default: "Bug",
     },
     reproSteps: {
