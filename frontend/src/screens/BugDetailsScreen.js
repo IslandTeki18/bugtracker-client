@@ -1,7 +1,11 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { listBugDetails, createBugNotes } from "../actions/bugActions";
+import {
+  listBugDetails,
+  createBugNotes,
+  removeBugNoteById,
+} from "../actions/bugActions";
 import { BUG_NOTES_RESET } from "../constants/bugConstants";
 import moment from "moment";
 import Loader from "../components/Loader";
@@ -22,6 +26,13 @@ const BugDetailsScreen = ({ match }) => {
     success: notesSuccess,
   } = bugNotesCreate;
 
+  const bugNotesDelete = useSelector((state) => state.bugNotesDelete);
+  const {
+    loading: deleteNoteLoading,
+    error: deleteNoteError,
+    success: deleteNoteSuccess,
+  } = bugNotesDelete;
+
   useEffect(() => {
     // on page load, set scroll to top of screen
     window.scrollTo(0, 0);
@@ -31,7 +42,7 @@ const BugDetailsScreen = ({ match }) => {
       dispatch({ type: BUG_NOTES_RESET });
     }
     dispatch(listBugDetails(bugId));
-  }, [dispatch, bugId, notesSuccess]);
+  }, [dispatch, bugId, notesSuccess, deleteNoteSuccess]);
 
   const notesSubmitHandler = (e) => {
     e.preventDefault();
@@ -40,6 +51,12 @@ const BugDetailsScreen = ({ match }) => {
         comment,
       })
     );
+  };
+
+  const removeItemHandler = (itemId, noteId) => {
+    if (window.confirm("Are you sure you wanna delete?")) {
+      dispatch(removeBugNoteById(itemId, noteId));
+    }
   };
 
   return (
@@ -101,11 +118,36 @@ const BugDetailsScreen = ({ match }) => {
                         className="list-group-item bg-dark text-white"
                         key={note._id}
                       >
-                        <p>{moment(note.createdAt).calendar()}</p>
+                        <div className="d-flex justify-content-between">
+                          <p>{moment(note.createdAt).calendar()}</p>
+                          <div className="btn-group">
+                            <button className="btn btn-link">
+                              <i
+                                className="far fa-edit"
+                                style={{ color: "lightblue" }}
+                              ></i>
+                            </button>
+                            <button
+                              className="btn btn-link"
+                              onClick={() =>
+                                removeItemHandler(bug._id, note._id)
+                              }
+                            >
+                              <i
+                                className="far fa-trash-alt"
+                                style={{ color: "#B13736" }}
+                              ></i>
+                            </button>
+                          </div>
+                        </div>
                         <p>{note.comment}</p>
                       </li>
                     ))}
                   </ul>
+                  {deleteNoteLoading && <Loader />}
+                  {deleteNoteError && (
+                    <Message variant="danger">{deleteNoteError}</Message>
+                  )}
                   {notesSuccess && (
                     <Message variant="success">Note Added!</Message>
                   )}

@@ -17,6 +17,9 @@ import {
   BUG_NOTES_REQUEST,
   BUG_NOTES_SUCCESS,
   BUG_NOTES_FAIL,
+  BUG_NOTES_DELETE_SUCCESS,
+  BUG_NOTES_DELETE_REQUEST,
+  BUG_NOTES_DELETE_FAIL,
 } from "../constants/bugConstants";
 import axios from "axios";
 
@@ -160,6 +163,33 @@ export const createBugNotes = (bugId, comment) => async (
   } catch (error) {
     dispatch({
       type: BUG_NOTES_FAIL,
+      payload:
+        error.response && error.response.data.message
+          ? error.response.data.message
+          : error.message,
+    });
+  }
+};
+
+export const removeBugNoteById = (bugId, noteId) => async (
+  dispatch,
+  getState
+) => {
+  try {
+    dispatch({ type: BUG_NOTES_DELETE_REQUEST });
+    const {
+      userLogin: { userInfo },
+    } = getState();
+    const config = {
+      headers: {
+        Authorization: `Bearer ${userInfo.token}`,
+      },
+    };
+    await axios.delete(`/api/bugs/${bugId}/${noteId}`, config);
+    dispatch({ type: BUG_NOTES_DELETE_SUCCESS });
+  } catch (error) {
+    dispatch({
+      type: BUG_NOTES_DELETE_FAIL,
       payload:
         error.response && error.response.data.message
           ? error.response.data.message

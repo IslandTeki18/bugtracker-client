@@ -130,6 +130,39 @@ const postCreateBugNote = asyncHandler(async (req, res) => {
   }
 });
 
+//@desc     Delete note by ID
+//@route    DELETE /api/bugs/:id/notes
+//@access   Private
+const deleteBugNoteById = asyncHandler(async (req, res) => {
+  const bug = await Bug.findById(req.params.id)
+  if (bug) {
+    // get the note by id
+    const foundNote = bug.notes.find(x => x.id === req.params.note_id)
+    // check for comment
+    if (!foundNote) {
+      res.status(404)
+      throw new Error("Note doesn't exist")
+    }
+    // remove that note from the array
+    var notesArray = bug.notes
+    for (var i = 0; i < notesArray.length; i++){
+      if (notesArray[i] === foundNote) {
+        notesArray.splice(i, 1)
+      }
+    }
+    // save bug
+    await bug.save()
+    res.status(201).json({message: "Note removed!"})
+  } else {
+    res.status(404)
+    throw new Error("Bug not found...")
+  }
+})
+
+//@desc     Update note by ID
+//@route    PUT /api/bugs/:id/notes
+//@access   Private
+
 export {
   getUserBugs,
   postCreateBug,
@@ -137,4 +170,5 @@ export {
   deleteBugById,
   putBugById,
   postCreateBugNote,
+  deleteBugNoteById
 };

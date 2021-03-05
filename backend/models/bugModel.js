@@ -8,7 +8,6 @@ const notesSchema = mongoose.Schema(
     },
     comment: {
       type: String,
-      required: true,
     },
   },
   {
