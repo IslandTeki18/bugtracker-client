@@ -6,6 +6,7 @@ import {
   getBugDetails,
   deleteBugById,
   putBugById,
+  postCreateBugNote,
 } from "../controllers/bugController.js";
 import { admin, protect } from "../middleware/authMiddleware.js";
 
@@ -15,5 +16,6 @@ router
   .get(protect, getBugDetails)
   .delete(protect, deleteBugById)
   .put(protect, putBugById);
+router.route("/:id/notes").post(protect, postCreateBugNote);
 
 export default router;

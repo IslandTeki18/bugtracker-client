@@ -16,6 +16,10 @@ import {
   BUG_UPDATE_SUCCESS,
   BUG_UPDATE_FAIL,
   BUG_UPDATE_RESET,
+  BUG_NOTES_REQUEST,
+  BUG_NOTES_SUCCESS,
+  BUG_NOTES_FAIL,
+  BUG_NOTES_RESET,
 } from "../constants/bugConstants";
 
 export const bugCreateReducer = (state = {}, action) => {
@@ -48,10 +52,7 @@ export const bugListReducer = (state = { bugs: [] }, action) => {
   }
 };
 
-export const bugDetailsReducer = (
-  state = { bug: { comments: [] } },
-  action
-) => {
+export const bugDetailsReducer = (state = { bug: { notes: [] } }, action) => {
   switch (action.type) {
     case BUG_DETAILS_REQUEST:
       return { loading: true, ...state };
@@ -89,6 +90,22 @@ export const bugUpdateReducer = (state = { bug: {} }, action) => {
       return { loading: false, error: action.payload };
     case BUG_UPDATE_RESET:
       return { bug: {} };
+
+    default:
+      return state;
+  }
+};
+
+export const bugNotesCreateReducer = (state = {}, action) => {
+  switch (action.type) {
+    case BUG_NOTES_REQUEST:
+      return { loading: true };
+    case BUG_NOTES_SUCCESS:
+      return { loading: false, success: true };
+    case BUG_NOTES_FAIL:
+      return { loading: false, error: action.payload };
+    case BUG_NOTES_RESET:
+      return {};
 
     default:
       return state;

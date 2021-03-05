@@ -14,6 +14,9 @@ import {
   BUG_UPDATE_SUCCESS,
   BUG_UPDATE_REQUEST,
   BUG_UPDATE_FAIL,
+  BUG_NOTES_REQUEST,
+  BUG_NOTES_SUCCESS,
+  BUG_NOTES_FAIL,
 } from "../constants/bugConstants";
 import axios from "axios";
 
@@ -129,6 +132,34 @@ export const updateBug = (bug) => async (dispatch, getState) => {
   } catch (error) {
     dispatch({
       type: BUG_UPDATE_FAIL,
+      payload:
+        error.response && error.response.data.message
+          ? error.response.data.message
+          : error.message,
+    });
+  }
+};
+
+export const createBugNotes = (bugId, comment) => async (
+  dispatch,
+  getState
+) => {
+  try {
+    dispatch({ type: BUG_NOTES_REQUEST });
+    const {
+      userLogin: { userInfo },
+    } = getState();
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${userInfo.token}`,
+      },
+    };
+    await axios.post(`/api/bugs/${bugId}/notes`, comment, config);
+    dispatch({ type: BUG_NOTES_SUCCESS });
+  } catch (error) {
+    dispatch({
+      type: BUG_NOTES_FAIL,
       payload:
         error.response && error.response.data.message
           ? error.response.data.message

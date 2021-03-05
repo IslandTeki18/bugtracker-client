@@ -106,4 +106,35 @@ const deleteBugById = asyncHandler(async (req, res) => {
   }
 });
 
-export { getUserBugs, postCreateBug, getBugDetails, deleteBugById, putBugById };
+//@desc     Create a note
+//@route    POST /api/bugs/:id/notes
+//@access   Private
+const postCreateBugNote = asyncHandler(async (req, res) => {
+  const { comment } = req.body;
+  const bug = await Bug.findById(req.params.id);
+  if (bug) {
+    // create the note
+    const itemNote = {
+      comment,
+      user: req.user._id,
+    };
+    // add note to notes array
+    bug.notes.push(itemNote);
+    // save it
+    await bug.save();
+    // send it
+    res.status(201).json({ message: "Note Added" });
+  } else {
+    res.status(404);
+    throw new Error("Bug not found");
+  }
+});
+
+export {
+  getUserBugs,
+  postCreateBug,
+  getBugDetails,
+  deleteBugById,
+  putBugById,
+  postCreateBugNote,
+};

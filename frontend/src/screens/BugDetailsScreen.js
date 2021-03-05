@@ -1,21 +1,47 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { listBugDetails } from "../actions/bugActions";
+import { listBugDetails, createBugNotes } from "../actions/bugActions";
+import { BUG_NOTES_RESET } from "../constants/bugConstants";
+import moment from "moment";
 import Loader from "../components/Loader";
 import Message from "../components/Message";
 
-const BugDetailsScreen = ({ history, match }) => {
+const BugDetailsScreen = ({ match }) => {
   const dispatch = useDispatch();
   const bugId = match.params.id;
+  const [comment, setComment] = useState("");
+
   const bugDetails = useSelector((state) => state.bugDetails);
   const { loading, error, bug } = bugDetails;
-  useEffect(() => {});
+
+  const bugNotesCreate = useSelector((state) => state.bugNotesCreate);
+  const {
+    loading: notesLoading,
+    error: notesError,
+    success: notesSuccess,
+  } = bugNotesCreate;
+
   useEffect(() => {
     // on page load, set scroll to top of screen
     window.scrollTo(0, 0);
+
+    if (notesSuccess) {
+      setComment("");
+      dispatch({ type: BUG_NOTES_RESET });
+    }
     dispatch(listBugDetails(bugId));
-  }, [dispatch, bugId]);
+  }, [dispatch, bugId, notesSuccess]);
+
+  const notesSubmitHandler = (e) => {
+    e.preventDefault();
+    dispatch(
+      createBugNotes(bugId, {
+        comment,
+      })
+    );
+  };
+
   return (
     <>
       <section className="py-5" id="bug-details">
@@ -66,6 +92,54 @@ const BugDetailsScreen = ({ history, match }) => {
                     {bug.reproSteps}
                   </p>
                 )}
+                <div className="notes-wrapper">
+                  <h4 className="text-white">Notes</h4>
+                  {bug.notes.length === 0 && <Message>No Notes</Message>}
+                  <ul className="list-group list-group-flush">
+                    {bug.notes.map((note) => (
+                      <li
+                        className="list-group-item bg-dark text-white"
+                        key={note._id}
+                      >
+                        <p>{moment(note.createdAt).calendar()}</p>
+                        <p>{note.comment}</p>
+                      </li>
+                    ))}
+                  </ul>
+                  {notesSuccess && (
+                    <Message variant="success">Note Added!</Message>
+                  )}
+                  {notesError && (
+                    <Message variant="danger">{notesError}</Message>
+                  )}
+                  {notesLoading && <Loader />}
+                </div>
+                <button
+                  className="btn btn-primary btn-sm"
+                  type="button"
+                  data-toggle="collapse"
+                  data-target="#notes-form"
+                  aria-expanded="false"
+                  aria-controls="notes-form"
+                >
+                  Add Note
+                </button>
+                <div className="notes-form-wrapper collapse" id="notes-form">
+                  <form onSubmit={notesSubmitHandler}>
+                    <div className="form-group">
+                      <textarea
+                        className="form-control"
+                        id="itemNotesTextAreaInput"
+                        rows="5"
+                        value={comment}
+                        onChange={(e) => setComment(e.target.value)}
+                      ></textarea>
+                      <button className="btn btn-sm btn-primary" type="submit">
+                        Submit
+                      </button>
+                    </div>
+                  </form>
+                </div>
               </div>
               <div className="col-md-4">
                 <ul>

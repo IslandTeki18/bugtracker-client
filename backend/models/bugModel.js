@@ -1,4 +1,20 @@
 import mongoose from "mongoose";
+const notesSchema = mongoose.Schema(
+  {
+    user: {
+      type: mongoose.Schema.Types.ObjectId,
+      required: true,
+      ref: "User",
+    },
+    comment: {
+      type: String,
+      required: true,
+    },
+  },
+  {
+    timestamps: true,
+  }
+);
 
 const bugSchema = mongoose.Schema(
   {
@@ -52,15 +68,7 @@ const bugSchema = mongoose.Schema(
     levelOfEffort: {
       type: Number,
     },
-    comments: {
-      user: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "User",
-      },
-      body: {
-        type: String,
-      },
-    },
+    notes: [notesSchema],
   },
   {
     timestamps: true,

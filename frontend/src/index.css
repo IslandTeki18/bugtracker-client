@@ -9,21 +9,6 @@ main {
   border-radius: 3%;
 }
 
-.table {
-  table-layout: fixed;
-}
-.profile-icon {
-  font-size: 15px;
-  color: #ffffff;
-}
-.profile-icon-edit {
-  font-size: 15px;
-  color: #3385ae;
-}
-.profile-icon-trash {
-  font-size: 15px;
-  color: #c45151;
-}
 /* Profile Screen - End */
 
 /* Bug Details Screen - Start */
@@ -31,4 +16,5 @@ main {
   font-size: 20px;
   color: lightblue;
 }
+
 /* Bug Details Screen - End */
