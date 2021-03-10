@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import Loader from "../components/Loader";
 import Message from "../components/Message";
+import RichTextEditor from "../components/RichTextEditor";
 import { updateBug, listBugDetails } from "../actions/bugActions";
 import { useDispatch, useSelector } from "react-redux";
 import { BUG_UPDATE_RESET } from "../constants/bugConstants";
@@ -83,6 +84,10 @@ const BugEditScreen = ({ match, history }) => {
       })
     );
   };
+
+  const ckDescHandler = (data) => {
+    setDesc(data);
+  };
   return (
     <>
       <section className="py-3">
@@ -96,9 +101,9 @@ const BugEditScreen = ({ match, history }) => {
               <Message variant="danger">{error}</Message>
             ) : (
               <>
-                <div className="col-md-8 text-white">
+                <div className="col-md-8">
                   <form>
-                    <div className="mb-3">
+                    <div className="mb-3 text-white">
                       <label htmlFor="titleInputField" className="form-label">
                         Title
                       </label>
@@ -111,7 +116,7 @@ const BugEditScreen = ({ match, history }) => {
                         onChange={(e) => setTitle(e.target.value)}
                       />
                     </div>
-                    <div className="mb-3">
+                    <div className="mb-3 text-white">
                       <label htmlFor="projectInputField" className="form-label">
                         Project
                       </label>
@@ -124,7 +129,7 @@ const BugEditScreen = ({ match, history }) => {
                         onChange={(e) => setProject(e.target.value)}
                       />
                     </div>
-                    <div className="mb-3">
+                    <div className="mb-3 text-white">
                       <label
                         htmlFor="typeInputField"
                         className="form-label pr-2"
@@ -165,7 +170,7 @@ const BugEditScreen = ({ match, history }) => {
                         <option value="New">New</option>
                       </select>
                     </div>
-                    <div className="mb-3">
+                    <div className="mb-3 text-white">
                       <label
                         htmlFor="repoStepsInputField"
                         className="form-label"
@@ -181,7 +186,7 @@ const BugEditScreen = ({ match, history }) => {
                         onChange={(e) => setAssignmentTo(e.target.value)}
                       />
                     </div>
-                    <div className="mb-3">
+                    <div className="mb-3 text-white">
                       <label
                         htmlFor="reproStepsInputField"
                         className="form-label"
@@ -200,17 +205,18 @@ const BugEditScreen = ({ match, history }) => {
                     <div className="mb-3">
                       <label
                         htmlFor="descriptionTextArea"
-                        className="form-label"
+                        className="form-label text-white"
                       >
                         Description
                       </label>
-                      <textarea
+                      {/* <textarea
                         className="form-control"
                         id="descriptionTextArea"
                         rows="5"
                         value={desc}
                         onChange={(e) => setDesc(e.target.value)}
-                      ></textarea>
+                      ></textarea> */}
+                      <RichTextEditor value={desc} onChange={ckDescHandler} />
                     </div>
                   </form>
                 </div>

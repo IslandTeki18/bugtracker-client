@@ -6,18 +6,16 @@ import {
   createBugNotes,
   removeBugNoteById,
 } from "../actions/bugActions";
-import {
-  BUG_NOTES_RESET,
-} from "../constants/bugConstants";
+import { BUG_NOTES_RESET } from "../constants/bugConstants";
 import moment from "moment";
 import Loader from "../components/Loader";
 import Message from "../components/Message";
+import ReactHtmlParser from "react-html-parser";
 
 const BugDetailsScreen = ({ match }) => {
   const dispatch = useDispatch();
   const bugId = match.params.id;
   const [comment, setComment] = useState("");
-  const [editComment, setEditComment] = useState(comment);
 
   const bugDetails = useSelector((state) => state.bugDetails);
   const { loading, error, bug } = bugDetails;
@@ -36,21 +34,9 @@ const BugDetailsScreen = ({ match }) => {
     success: deleteNoteSuccess,
   } = bugNotesDelete;
 
-  // const bugNotesUpdate = useSelector((state) => state.bugNotesUpdate);
-  // const {
-  //   loading: updateNoteLoading,
-  //   error: updateNoteError,
-  //   success: updateNoteSuccess,
-  // } = bugNotesUpdate;
-
   useEffect(() => {
     // on page load, set scroll to top of screen
     window.scrollTo(0, 0);
-
-    // if (updateNoteSuccess) {
-    //   setEditComment("");
-    //   dispatch({ type: BUG_NOTES_UPDATE_RESET });
-    // }
 
     if (notesSuccess) {
       setComment("");
@@ -74,14 +60,6 @@ const BugDetailsScreen = ({ match }) => {
     }
   };
 
-  // const updateItemNote = (itemId, noteId) => {
-  //   dispatch(
-  //     updateBugNoteById(itemId, noteId, {
-  //       comment,
-  //     })
-  //   );
-  // };
-
   return (
     <>
       <section className="py-5" id="bug-details">
@@ -89,6 +67,9 @@ const BugDetailsScreen = ({ match }) => {
           error && <Message>{error}</Message>
         ) : (
           <div className="container">
+            <Link to="/profile" className="btn-gray btn-sm mb-4">
+              Back
+            </Link>
             <div className="row">
               <div className="col-md-8">
                 <div className="bug-title-wrap d-flex">
@@ -115,26 +96,43 @@ const BugDetailsScreen = ({ match }) => {
                   </Link>
                 </div>
                 <div className="bug-info-wrap d-flex">
-                  <h6 className="text-white mr-5">
-                    Assigned to: {bug.assignmentTo}
+                  <h6 className="text-white text-truncate mr-3">
+                    <span className="badge badge-light mr-2">Assigned to:</span>
+                    {bug.assignmentTo}
                   </h6>
-                  <h6 className="text-white mr-5">Type: {bug.type}</h6>
-                  <h6 className="text-white">Project: {bug.project}</h6>
+                  <h6 className="text-white text-truncate mr-3">
+                    <span className="badge badge-light mr-2">Type:</span>
+                    {bug.type}
+                  </h6>
+                  <h6 className="text-white text-truncate">
+                    <span className="badge badge-light mr-2">Project:</span>
+                    {bug.project}
+                  </h6>
                 </div>
-                <p className="pt-2 text-white">
-                  Description: <br />
-                  <br /> {bug.desc}
-                </p>
+                <div className="pt-2 text-white">
+                  <h6 className="text-white">
+                    <u>Description:</u>
+                  </h6>{" "}
+                  <br />
+                  {ReactHtmlParser(bug.desc)}
+                </div>
                 {bug.reproSteps === "" ? null : (
-                  <p className="pt-2 text-white">
-                    Repro Steps: <br />
+                  <div className="pt-3 text-white">
+                    <h6 className="text-white">
+                      <u>Repro Steps:</u>
+                    </h6>{" "}
                     <br />
                     {bug.reproSteps}
-                  </p>
+                  </div>
                 )}
-                <div className="notes-wrapper">
-                  <h4 className="text-white">Notes</h4>
-                  {bug.notes.length === 0 && <Message>No Notes</Message>}
+                {/* Notes Section */}
+                <div className="notes-wrapper pt-3">
+                  <h6 className="text-white">
+                    <u>Notes</u>
+                  </h6>
+                  {bug.notes.length === 0 && (
+                    <Message>There are no notes...</Message>
+                  )}
                   <ul className="list-group list-group-flush">
                     {bug.notes.map((note) => (
                       <li
@@ -142,21 +140,12 @@ const BugDetailsScreen = ({ match }) => {
                         key={note._id}
                       >
                         <div className="d-flex justify-content-between">
-                          <p>{moment(note.createdAt).calendar()}</p>
+                          <p>
+                            <i>
+                              <b>{moment(note.createdAt).calendar()}</b>
+                            </i>
+                          </p>
                           <div className="btn-group">
-                            {/* <button
-                              className="btn btn-link"
-                              type="button"
-                              data-toggle="collapse"
-                              data-target="#editNotesTextArea"
-                              aria-expanded="false"
-                              aria-controls="editNotesTextArea"
-                            >
-                              <i
-                                className="far fa-edit"
-                                style={{ color: "lightblue" }}
-                              ></i>
-                            </button> */}
                             <button
                               className="btn btn-link"
                               onClick={() =>
@@ -170,21 +159,7 @@ const BugDetailsScreen = ({ match }) => {
                             </button>
                           </div>
                         </div>
-                        {/* <div
-                          className="collapse edit-textarea-wrapper"
-                          id="editNotesTextArea"
-                        >
-                          <form>
-                            <textarea
-                              className="form-control"
-                              id="editNotesTextArea"
-                              rows="5"
-                              value={editComment}
-                              onChange={(e) => setEditComment(e.target.value)}
-                            ></textarea>
-                          </form>
-                        </div> */}
-                        <p>{note.comment}</p>
+                        <p>{ReactHtmlParser(note.comment)}</p>
                       </li>
                     ))}
                   </ul>
