@@ -50,7 +50,12 @@ export const bugListReducer = (state = { bugs: [] }, action) => {
     case BUG_LIST_REQUEST:
       return { loading: true, bugs: [] };
     case BUG_LIST_SUCCESS:
-      return { loading: false, bugs: action.payload };
+      return {
+        loading: false,
+        bugs: action.payload.bugs,
+        pages: action.payload.pages,
+        page: action.payload.page,
+      };
     case BUG_LIST_FAIL:
       return { loading: false, error: action.payload };
 

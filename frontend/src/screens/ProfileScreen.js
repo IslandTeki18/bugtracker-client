@@ -2,12 +2,18 @@ import { useEffect } from "react";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { createBug, listBugs, deleteBug } from "../actions/bugActions";
+import { Route } from "react-router-dom";
 import Loader from "../components/Loader";
 import Message from "../components/Message";
+import Paginate from "../components/Paginate";
+import SearchBox from "../components/SearchBox";
 import moment from "moment";
 import { BUG_CREATE_RESET } from "../constants/bugConstants";
 
-const ProfileScreen = ({ history }) => {
+const ProfileScreen = ({ match, history }) => {
+  const keyword = match.params.keyword;
+  const pageNumber = match.params.pageNumber || 1;
+
   const dispatch = useDispatch();
 
   const bugCreate = useSelector((state) => state.bugCreate);
@@ -22,7 +28,7 @@ const ProfileScreen = ({ history }) => {
   const { userInfo } = userLogin;
 
   const bugList = useSelector((state) => state.bugList);
-  const { loading, error, bugs } = bugList;
+  const { loading, error, bugs, page, pages } = bugList;
 
   const bugDelete = useSelector((state) => state.bugDelete);
   const {
@@ -43,9 +49,18 @@ const ProfileScreen = ({ history }) => {
     if (createSuccess) {
       history.push(`/bug/${createdBug._id}/edit`);
     } else {
-      dispatch(listBugs());
+      dispatch(listBugs(keyword, pageNumber));
     }
-  }, [createSuccess, history, deleteSuccess, createdBug, userInfo, dispatch]);
+  }, [
+    createSuccess,
+    history,
+    deleteSuccess,
+    createdBug,
+    userInfo,
+    dispatch,
+    keyword,
+    pageNumber,
+  ]);
 
   const createBugHandler = () => {
     dispatch(createBug());
@@ -62,11 +77,14 @@ const ProfileScreen = ({ history }) => {
       <section className="pt-3" id="profile-controls">
         <div className="container">
           <div className="row">
-            <div className="col-md-6 d-flex">
+            <div className="col-md-8 d-flex">
               <h3 className="text-white pr-4">User Dashboard</h3>
-              <button className="btn btn-light btn-sm">Settings</button>
+              <button className="btn btn-light btn-sm mr-4">Settings</button>
+              <Route
+                render={({ history }) => <SearchBox history={history} />}
+              />
             </div>
-            <div className="col-md-6 text-right">
+            <div className="col-md-4 text-right">
               <button
                 className="btn btn-primary btn-sm"
                 onClick={createBugHandler}
@@ -84,6 +102,11 @@ const ProfileScreen = ({ history }) => {
           {createError && <Message variant="danger">{createError}</Message>}
           {deleteLoading && <Loader />}
           {deleteError && <Message variant="danger">{deleteError}</Message>}
+          {!keyword ? null : (
+            <Link to="/profile" className="btn btn-gray">
+              Go Back
+            </Link>
+          )}
           {loading ? (
             <Loader />
           ) : error ? (
@@ -138,7 +161,7 @@ const ProfileScreen = ({ history }) => {
                                         bug.type === "Task"
                                       ? "warning"
                                       : bug.type === "Design"
-                                      ? "info" 
+                                      ? "info"
                                       : bug.type === "Test Case"
                                       ? "light"
                                       : "primary"
@@ -151,13 +174,13 @@ const ProfileScreen = ({ history }) => {
                             <div className="d-flex">
                               <p>
                                 Project:{" "}
-                                <span class="badge badge-dark">
+                                <span className="badge badge-dark">
                                   {bug.project}
                                 </span>
                               </p>
                               <p>
                                 Created:{" "}
-                                <span class="badge badge-dark">
+                                <span className="badge badge-dark">
                                   {moment(bug.createdAt).calendar()}
                                 </span>
                               </p>
@@ -189,6 +212,11 @@ const ProfileScreen = ({ history }) => {
                   </div>
                 ))}
               </div>
+              <Paginate
+                pages={pages}
+                page={page}
+                keyword={keyword ? keyword : ""}
+              />
             </>
           )}
         </div>

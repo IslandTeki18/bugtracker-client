@@ -8,7 +8,6 @@ const RichTextEditor = ({ value, onChange }) => {
       data={value}
       onChange={(event, editor) => {
         const data = editor.getData();
-        console.log({ data });
         onChange(data);
       }}
     />

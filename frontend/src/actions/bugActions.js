@@ -55,7 +55,10 @@ export const createBug = () => async (dispatch, getState) => {
   }
 };
 
-export const listBugs = () => async (dispatch, getState) => {
+export const listBugs = (keyword = "", pageNumber = "") => async (
+  dispatch,
+  getState
+) => {
   try {
     dispatch({ type: BUG_LIST_REQUEST });
     const {
@@ -64,7 +67,7 @@ export const listBugs = () => async (dispatch, getState) => {
     const config = {
       headers: { Authorization: `Bearer ${userInfo.token}` },
     };
-    const { data } = await axios.get("/api/bugs", config);
+    const { data } = await axios.get(`/api/bugs?keyword=${keyword}&pageNumber=${pageNumber}`, config);
     dispatch({ type: BUG_LIST_SUCCESS, payload: data });
   } catch (error) {
     dispatch({

@@ -5,8 +5,22 @@ import Bug from "../models/bugModel.js";
 //@route    GET /api/bugs
 //@access   Private
 const getUserBugs = asyncHandler(async (req, res) => {
-  const bugs = await Bug.find({});
-  res.json(bugs);
+  const pageSize = 6;
+  const page = Number(req.query.pageNumber) || 1;
+  const keyword = req.query.keyword
+    ? {
+        name: {
+          $regex: req.query.keyword,
+          $options: "i",
+        },
+      }
+    : {};
+
+  const count = await Bug.countDocuments({ ...keyword });
+  const bugs = await Bug.find({ ...keyword })
+    .limit(pageSize)
+    .skip(pageSize * (page - 1));
+  res.json({ bugs, page, pages: Math.ceil(count / pageSize) });
 });
 
 //@desc     Create new bug issue
@@ -183,7 +197,7 @@ const putBugNoteById = asyncHandler(async (req, res) => {
     var notesArray = bug.notes;
     for (var i = 0; i < notesArray.length; i++) {
       if (notesArray[i] === foundNote) {
-        notesArray[i].comment = comment
+        notesArray[i].comment = comment;
       }
     }
     // save it

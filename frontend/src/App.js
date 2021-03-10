@@ -1,4 +1,5 @@
 import { BrowserRouter as Router, Route } from "react-router-dom";
+
 // Header and Footer Components
 import Header from "./app/Header";
 import Footer from "./app/Footer";
@@ -17,9 +18,16 @@ function App() {
       <main className="bg-dark">
         <Route exact path="/" component={LoginScreen} />
         <Route path="/register" component={RegisterScreen} />
-        <Route path="/profile" component={ProfileScreen} />
         <Route exact path="/bug/:id" component={BugDetailsScreen} />
         <Route path="/bug/:id/edit" component={BugEditScreen} />
+        <Route exact path="/search/:keyword" component={ProfileScreen} />
+        <Route
+          exact
+          path="/search/:keyword/page/:pageNumber"
+          component={ProfileScreen}
+        />
+        <Route exact path="/page/:pageNumber" component={ProfileScreen} />
+        <Route exact path="/profile" component={ProfileScreen} />
       </main>
       <Footer />
     </Router>
