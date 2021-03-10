@@ -23,6 +23,10 @@ import {
   BUG_NOTES_DELETE_REQUEST,
   BUG_NOTES_DELETE_SUCCESS,
   BUG_NOTES_DELETE_FAIL,
+  BUG_NOTES_UPDATE_REQUEST,
+  BUG_NOTES_UPDATE_SUCCESS,
+  BUG_NOTES_UPDATE_FAIL,
+  BUG_NOTES_UPDATE_RESET,
 } from "../constants/bugConstants";
 
 export const bugCreateReducer = (state = {}, action) => {
@@ -123,6 +127,25 @@ export const bugNotesDeleteReducer = (state = {}, action) => {
       return { loading: false, success: true };
     case BUG_NOTES_DELETE_FAIL:
       return { loading: false, error: action.payload };
+
+    default:
+      return state;
+  }
+};
+
+export const bugNotesUpdateReducer = (
+  state = { bug: { notes: {} } },
+  action
+) => {
+  switch (action.type) {
+    case BUG_NOTES_UPDATE_REQUEST:
+      return { loading: true };
+    case BUG_NOTES_UPDATE_SUCCESS:
+      return { loading: false, success: true, bug: action.payload };
+    case BUG_NOTES_UPDATE_FAIL:
+      return { loading: false, error: action.payload };
+    case BUG_NOTES_UPDATE_RESET:
+      return { bug: { notes: {} } };
 
     default:
       return state;

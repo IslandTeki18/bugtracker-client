@@ -131,37 +131,67 @@ const postCreateBugNote = asyncHandler(async (req, res) => {
 });
 
 //@desc     Delete note by ID
-//@route    DELETE /api/bugs/:id/notes
+//@route    DELETE /api/bugs/:id/:noteId
 //@access   Private
 const deleteBugNoteById = asyncHandler(async (req, res) => {
-  const bug = await Bug.findById(req.params.id)
+  const bug = await Bug.findById(req.params.id);
   if (bug) {
     // get the note by id
-    const foundNote = bug.notes.find(x => x.id === req.params.note_id)
+    const foundNote = bug.notes.find((x) => x.id === req.params.note_id);
+
     // check for comment
     if (!foundNote) {
-      res.status(404)
-      throw new Error("Note doesn't exist")
+      res.status(404);
+      throw new Error("Note doesn't exist");
     }
     // remove that note from the array
-    var notesArray = bug.notes
-    for (var i = 0; i < notesArray.length; i++){
+    var notesArray = bug.notes;
+    for (var i = 0; i < notesArray.length; i++) {
       if (notesArray[i] === foundNote) {
-        notesArray.splice(i, 1)
+        notesArray.splice(i, 1);
       }
     }
-    // save bug
-    await bug.save()
-    res.status(201).json({message: "Note removed!"})
+    // save "new" bug
+    await bug.save();
+    res.status(201).json({ message: "Note removed!" });
   } else {
-    res.status(404)
-    throw new Error("Bug not found...")
+    res.status(404);
+    throw new Error("Bug not found...");
   }
-})
+});
 
 //@desc     Update note by ID
-//@route    PUT /api/bugs/:id/notes
+//@route    PUT /api/bugs/:id/:noteId
 //@access   Private
+// TODO: Make this feature work.
+const putBugNoteById = asyncHandler(async (req, res) => {
+  // get comment body from req.body
+  const { comment } = req.body;
+
+  // get the item
+  const item = await Bug.findById(req.params.id);
+
+  // get the note by id
+  const foundNote = bug.notes.find((x) => x.id === req.params.note_id);
+
+  // error check bug
+  if (!item) {
+    res.status(404);
+    throw new Error("Item not found");
+  } else {
+    // replace old comment with new
+    var notesArray = bug.notes;
+    for (var i = 0; i < notesArray.length; i++) {
+      if (notesArray[i] === foundNote) {
+        notesArray[i].comment = comment
+      }
+    }
+    // save it
+    const newComment = await item.save();
+    // ship it
+    res.json(newComment);
+  }
+});
 
 export {
   getUserBugs,
@@ -170,5 +200,6 @@ export {
   deleteBugById,
   putBugById,
   postCreateBugNote,
-  deleteBugNoteById
+  deleteBugNoteById,
+  putBugNoteById,
 };

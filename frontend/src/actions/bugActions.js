@@ -20,6 +20,9 @@ import {
   BUG_NOTES_DELETE_SUCCESS,
   BUG_NOTES_DELETE_REQUEST,
   BUG_NOTES_DELETE_FAIL,
+  BUG_NOTES_UPDATE_REQUEST,
+  BUG_NOTES_UPDATE_SUCCESS,
+  BUG_NOTES_UPDATE_FAIL,
 } from "../constants/bugConstants";
 import axios from "axios";
 
@@ -197,3 +200,33 @@ export const removeBugNoteById = (bugId, noteId) => async (
     });
   }
 };
+
+// TODO: make this feature work. This is the edit a note by ID
+
+// export const updateBugNoteById = (bugId, noteId, comment) => async (
+//   dispatch,
+//   getState
+// ) => {
+//   try {
+//     dispatch({ type: BUG_NOTES_UPDATE_REQUEST });
+//     const {
+//       userLogin: { userInfo },
+//     } = getState();
+//     const config = {
+//       headers: {
+//         "Content-Type": "application/json",
+//         Authorization: `Bearer ${userInfo.token}`,
+//       },
+//     };
+//     const { data } = await axios.put(`/api/bugs/${bugId}/${noteId}`, comment, config);
+//     dispatch({ type: BUG_NOTES_UPDATE_SUCCESS, payload: data });
+//   } catch (error) {
+//     dispatch({
+//       type: BUG_NOTES_UPDATE_FAIL,
+//       payload:
+//         error.response && error.response.data.message
+//           ? error.response.data.message
+//           : error.message,
+//     });
+//   }
+// };

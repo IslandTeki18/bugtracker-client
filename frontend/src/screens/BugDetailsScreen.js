@@ -6,7 +6,9 @@ import {
   createBugNotes,
   removeBugNoteById,
 } from "../actions/bugActions";
-import { BUG_NOTES_RESET } from "../constants/bugConstants";
+import {
+  BUG_NOTES_RESET,
+} from "../constants/bugConstants";
 import moment from "moment";
 import Loader from "../components/Loader";
 import Message from "../components/Message";
@@ -15,6 +17,7 @@ const BugDetailsScreen = ({ match }) => {
   const dispatch = useDispatch();
   const bugId = match.params.id;
   const [comment, setComment] = useState("");
+  const [editComment, setEditComment] = useState(comment);
 
   const bugDetails = useSelector((state) => state.bugDetails);
   const { loading, error, bug } = bugDetails;
@@ -33,9 +36,21 @@ const BugDetailsScreen = ({ match }) => {
     success: deleteNoteSuccess,
   } = bugNotesDelete;
 
+  // const bugNotesUpdate = useSelector((state) => state.bugNotesUpdate);
+  // const {
+  //   loading: updateNoteLoading,
+  //   error: updateNoteError,
+  //   success: updateNoteSuccess,
+  // } = bugNotesUpdate;
+
   useEffect(() => {
     // on page load, set scroll to top of screen
     window.scrollTo(0, 0);
+
+    // if (updateNoteSuccess) {
+    //   setEditComment("");
+    //   dispatch({ type: BUG_NOTES_UPDATE_RESET });
+    // }
 
     if (notesSuccess) {
       setComment("");
@@ -58,6 +73,14 @@ const BugDetailsScreen = ({ match }) => {
       dispatch(removeBugNoteById(itemId, noteId));
     }
   };
+
+  // const updateItemNote = (itemId, noteId) => {
+  //   dispatch(
+  //     updateBugNoteById(itemId, noteId, {
+  //       comment,
+  //     })
+  //   );
+  // };
 
   return (
     <>
@@ -121,12 +144,19 @@ const BugDetailsScreen = ({ match }) => {
                         <div className="d-flex justify-content-between">
                           <p>{moment(note.createdAt).calendar()}</p>
                           <div className="btn-group">
-                            <button className="btn btn-link">
+                            {/* <button
+                              className="btn btn-link"
+                              type="button"
+                              data-toggle="collapse"
+                              data-target="#editNotesTextArea"
+                              aria-expanded="false"
+                              aria-controls="editNotesTextArea"
+                            >
                               <i
                                 className="far fa-edit"
                                 style={{ color: "lightblue" }}
                               ></i>
-                            </button>
+                            </button> */}
                             <button
                               className="btn btn-link"
                               onClick={() =>
@@ -140,6 +170,20 @@ const BugDetailsScreen = ({ match }) => {
                             </button>
                           </div>
                         </div>
+                        {/* <div
+                          className="collapse edit-textarea-wrapper"
+                          id="editNotesTextArea"
+                        >
+                          <form>
+                            <textarea
+                              className="form-control"
+                              id="editNotesTextArea"
+                              rows="5"
+                              value={editComment}
+                              onChange={(e) => setEditComment(e.target.value)}
+                            ></textarea>
+                          </form>
+                        </div> */}
                         <p>{note.comment}</p>
                       </li>
                     ))}

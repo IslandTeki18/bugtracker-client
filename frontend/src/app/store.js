@@ -12,7 +12,8 @@ import {
   bugDeleteReducer,
   bugUpdateReducer,
   bugNotesCreateReducer,
-  bugNotesDeleteReducer
+  bugNotesDeleteReducer,
+  bugNotesUpdateReducer,
 } from "../reducers/bugReducers";
 
 const reducer = combineReducers({
@@ -24,7 +25,8 @@ const reducer = combineReducers({
   bugDelete: bugDeleteReducer,
   bugUpdate: bugUpdateReducer,
   bugNotesCreate: bugNotesCreateReducer,
-  bugNotesDelete: bugNotesDeleteReducer
+  bugNotesDelete: bugNotesDeleteReducer,
+  bugNotesUpdate: bugNotesUpdateReducer,
 });
 
 const userInfoFromStorage = localStorage.getItem("userInfo")
