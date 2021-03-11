@@ -10,6 +10,7 @@ import RegisterScreen from "./screens/RegisterScreen";
 import ProfileScreen from "./screens/ProfileScreen";
 import BugDetailsScreen from "./screens/BugDetailsScreen";
 import BugEditScreen from "./screens/BugEditScreen";
+import ProfileSettingsScreen from "./screens/ProfileSettingsScreen";
 
 function App() {
   return (
@@ -27,6 +28,11 @@ function App() {
           component={ProfileScreen}
         />
         <Route exact path="/page/:pageNumber" component={ProfileScreen} />
+        <Route
+          exact
+          path="/profile/settings"
+          component={ProfileSettingsScreen}
+        />
         <Route exact path="/profile" component={ProfileScreen} />
       </main>
       <Footer />

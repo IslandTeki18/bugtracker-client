@@ -79,7 +79,7 @@ const ProfileScreen = ({ match, history }) => {
           <div className="row">
             <div className="col-md-8 d-flex">
               <h3 className="text-white pr-4">User Dashboard</h3>
-              <button className="btn btn-light btn-sm mr-4">Settings</button>
+              <Link to="/profile/settings" className="btn btn-light mr-4">Settings</Link>
               <Route
                 render={({ history }) => <SearchBox history={history} />}
               />

@@ -49,9 +49,47 @@ const postNewUser = asyncHandler(async (req, res) => {
   }
 });
 
-//@desc     Update user setting
-//@route    PUT /api/users/:id
+//@desc     Get user info
+//@route    GET /api/users/profile
 //@access   Private
+const getUserInfo = asyncHandler(async (req, res) => {
+  const user = await User.findById(req.user._id);
+  if (user) {
+    res.json({
+      _id: user._id,
+      username: user.username,
+      isAdmin: user.isAdmin,
+    });
+  } else {
+    res.status(404);
+    throw new Error("User not found");
+  }
+});
+
+//@desc     Update user setting
+//@route    PUT /api/users/profile/settings
+//@access   Private
+const putUpdateUser = asyncHandler(async (req, res) => {
+  const user = await User.findById(req.user._id);
+
+  if (user) {
+    user.username = req.body.username || user.username;
+    if (req.body.password) {
+      user.password = req.body.password;
+    }
+    const updatedUser = await user.save();
+
+    res.json({
+      _id: updatedUser._id,
+      username: updatedUser.username,
+      isAdmin: updatedUser.isAdmin,
+      token: generateToken(updatedUser._id),
+    });
+  } else {
+    res.status(404);
+    throw new Error("User not found");
+  }
+});
 
 //@desc     Get all users
 //@route    PUT /api/users
@@ -65,4 +103,4 @@ const postNewUser = asyncHandler(async (req, res) => {
 //@route    PUT /api/users/:id
 //@access   Private/Admin
 
-export { getAuthUser, postNewUser };
+export { getAuthUser, postNewUser, putUpdateUser, getUserInfo };
