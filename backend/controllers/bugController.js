@@ -17,8 +17,8 @@ const getUserBugs = asyncHandler(async (req, res) => {
       }
     : {};
 
-  const count = await Bug.countDocuments({ ...keyword });
-  const bugs = await Bug.find({ ...keyword })
+  const count = await Bug.countDocuments({ ...keyword, user: req.user._id });
+  const bugs = await Bug.find({ ...keyword, user: req.user._id })
     .limit(pageSize)
     .skip(pageSize * (page - 1));
 
@@ -31,7 +31,7 @@ const getUserBugs = asyncHandler(async (req, res) => {
 const postCreateBug = asyncHandler(async (req, res) => {
   const bug = new Bug({
     user: req.user._id,
-    title: "Sample Bug Title",
+    title: "",
     reproSteps: "",
     type: "Bug",
     project: "",
@@ -43,7 +43,7 @@ const postCreateBug = asyncHandler(async (req, res) => {
     originalEstimate: 0,
     remaining: 0,
     hoursSpent: 0,
-    levelOfEffort: 1,
+    levelOfEffort: 0,
   });
 
   await bug.save();

@@ -9,9 +9,9 @@
 - [x] as a user, you can create new bugs or issues
 - [x] as a user, you can edit an issue or bug
 - [x] as a user, you can delete an issue or bug
-- [x] as an admin, you can view all the users and all the issues
-- [x] as an admin, you can edit any user or bug
-- [x] as an admin, you can delete any user or bug
+- [ ] as an admin, you can view all the users and all the issues
+- [ ] as an admin, you can edit any user or bug
+- [ ] as an admin, you can delete any user or bug
 
 ## Features
 

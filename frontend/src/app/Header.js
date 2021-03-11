@@ -13,7 +13,7 @@ const Header = () => {
   return (
     <nav className="navbar navbar-expand-lg navbar-dark bg-primary">
       <a className="navbar-brand" href="/">
-        Bug Tracker
+        StackTrace
       </a>
       <button
         className="navbar-toggler"
@@ -33,7 +33,7 @@ const Header = () => {
             <>
               <li className="nav-item active">
                 <Link className="nav-link" to="/profile">
-                  Profile
+                  Dashboard
                 </Link>
               </li>
               <li className="nav-item active">
