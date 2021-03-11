@@ -103,7 +103,7 @@ const ProfileScreen = ({ match, history }) => {
           {deleteLoading && <Loader />}
           {deleteError && <Message variant="danger">{deleteError}</Message>}
           {!keyword ? null : (
-            <Link to="/profile" className="btn btn-gray">
+            <Link to="/profile" className="btn btn-light my-2">
               Go Back
             </Link>
           )}
