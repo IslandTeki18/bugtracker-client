@@ -7,7 +7,7 @@ main {
   background-color: rgb(87 107 128) !important;
   border-radius: 3%;
   width: 100%;
-  height: 17rem;
+  height: auto;
 }
 /* Profile Screen - End */
 

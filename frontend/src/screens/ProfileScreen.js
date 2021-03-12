@@ -77,19 +77,23 @@ const ProfileScreen = ({ match, history }) => {
       <section className="pt-3" id="profile-controls">
         <div className="container">
           <div className="row">
-            <div className="col-md-8 d-flex">
+            <div className=" col-sm-12 col-md-8 d-flex">
               <h3 className="text-white pr-4">User Dashboard</h3>
-              <Route
-                render={({ history }) => <SearchBox history={history} />}
-              />
             </div>
-            <div className="col-md-4 text-right">
-              <button
-                className="btn btn-primary btn-sm"
-                onClick={createBugHandler}
-              >
-                Add Bug
-              </button>
+            <div className="row">
+              <div className="col-sm-12 col-md-8">
+                <Route
+                  render={({ history }) => <SearchBox history={history} />}
+                />
+              </div>
+              <div className="col-md-4">
+                <button
+                  className="btn btn-primary btn-sm"
+                  onClick={createBugHandler}
+                >
+                  Add Bug
+                </button>
+              </div>
             </div>
           </div>
         </div>
