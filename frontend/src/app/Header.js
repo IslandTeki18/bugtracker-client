@@ -13,7 +13,7 @@ const Header = () => {
   return (
     <nav className="navbar navbar-expand-lg navbar-dark bg-primary">
       <a className="navbar-brand" href="/">
-        StackTrace
+        Bug Tracker
       </a>
       <button
         className="navbar-toggler"

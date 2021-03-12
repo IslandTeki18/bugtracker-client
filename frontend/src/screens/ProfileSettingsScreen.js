@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { updateUserProfile, getUserDetails } from "../actions/userActions";
 import Loader from "../components/Loader";
 import Message from "../components/Message";
+import { USER_UPDATE_RESET } from "../constants/userConstants";
 
 const ProfileSettingsScreen = ({ location, history }) => {
   const [username, setUsername] = useState("");
@@ -22,6 +23,7 @@ const ProfileSettingsScreen = ({ location, history }) => {
   const { userInfo } = userLogin;
 
   useEffect(() => {
+    dispatch({ type: USER_UPDATE_RESET });
     // if user is not logged in, kick out to login page
     if (!userInfo) {
       history.push("/");
@@ -75,7 +77,9 @@ const ProfileSettingsScreen = ({ location, history }) => {
                 {loading && <Loader />}
                 {error && <Message variant="danger">{error}</Message>}
                 {message && <Message>{message}</Message>}
-                <h5 className="text-white text-center">Change Username</h5>
+                <h5 className="text-white text-center">
+                  Change Username & Password
+                </h5>
                 <div className="form-group text-white">
                   <label htmlFor="InputUsername">New Username</label>
                   <input

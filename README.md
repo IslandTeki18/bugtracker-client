@@ -1,6 +1,6 @@
 # A simple bug tracker built with the MERN stack
 
-> Coding bug tracker that allows users to log in bugs and issues with their current projects
+> Coding bug tracker that allows users to log in bugs and issues with their current projects. I'm calling it stacktrace.
 
 ## User Stories
 
@@ -9,6 +9,7 @@
 - [x] as a user, you can create new bugs or issues
 - [x] as a user, you can edit an issue or bug
 - [x] as a user, you can delete an issue or bug
+- [x] as a user, you can add notes to a bug
 - [ ] as an admin, you can view all the users and all the issues
 - [ ] as an admin, you can edit any user or bug
 - [ ] as an admin, you can delete any user or bug
@@ -17,7 +18,9 @@
 
 - Login/Register Functionality
 - Bug/Issue Creation/Edit/Delete
-- Custom Admin Dashboard that can view all users and bugs
+- Search a bug/item by title
+- Edit user information
+- Add notes to bug/items
 
 ## Built With
 
@@ -36,13 +39,13 @@
 ## Acknowledgments
 
 - This build was inspired by Brad Traversy's MERN eCommerce course on Udemy [MERN eCommerce](https://www.udemy.com/course/mern-ecommerce/)
-- [React](https://reactjs.org/docs/getting-started.html), [Redux](https://redux.js.org/introduction), [Mongoose](https://mongoosejs.com/docs/guide.html) documentation.
+- [React](https://reactjs.org/docs/getting-started.html), [Redux](https://redux.js.org/introduction), [Mongoose](https://mongoosejs.com/docs/guide.html), [Express](https://expressjs.com/), [MongoDB](https://docs.atlas.mongodb.com/), [Nodejs](https://nodejs.org/en/docs/) documentation.
 
 ## License
 
 The MIT License
 
-Copyright (c) 2020 Landon McKell https://landonmckelldevportfolio.herokuapp.com/
+Copyright (c) 2020 Landon McKell https://landonmckell.com
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
