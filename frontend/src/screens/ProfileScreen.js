@@ -79,7 +79,6 @@ const ProfileScreen = ({ match, history }) => {
           <div className="row">
             <div className="col-md-8 d-flex">
               <h3 className="text-white pr-4">User Dashboard</h3>
-              <Link to="/profile/settings" className="btn btn-light mr-4">Settings</Link>
               <Route
                 render={({ history }) => <SearchBox history={history} />}
               />
@@ -115,90 +114,120 @@ const ProfileScreen = ({ match, history }) => {
             <>
               <div className="row">
                 {bugs.map((bug, idx) => (
-                  <div className="col-sm-12 col-md-6 mb-3" key={idx}>
-                    <div className="mr-5 bug-card">
+                  <div className="col-12 col-sm-12 col-md-6 mb-3" key={idx}>
+                    <div className="mr-5 card">
+                      <div className="card-header">
+                        <h4 className="text-white text-truncate">
+                          {bug.title}
+                        </h4>
+                      </div>
                       <div className="card-body text-white">
                         <div className="row">
-                          <div className="col-md-8">
-                            <h4 className="text-white">{bug.title}</h4>
-                            <div className="d-flex">
-                              <p className="mr-3">
-                                ID:{" "}
-                                <span className="badge badge-dark">
-                                  {bug._id.substring(0, 5)}
-                                </span>
-                              </p>
-                              <p>
-                                Assigned To:{" "}
-                                <span className="badge badge-dark">
-                                  {bug.assignmentTo}
-                                </span>
-                              </p>
+                          <div className="col-12">
+                            <div className="row d-flex justify-content-between">
+                              <div className="col-4">
+                                <p className="mr-3">
+                                  ID:{" "}
+                                  <span className="badge badge-dark">
+                                    {bug._id.substring(0, 10)}
+                                  </span>
+                                </p>
+                              </div>
+                              <div className="col-4">
+                                <p className="mr-2">
+                                  Status:{" "}
+                                  <span
+                                    className={`badge badge-${
+                                      bug.status === "Closed" ||
+                                      bug.status === "Resolved"
+                                        ? "success"
+                                        : bug.status === "Active"
+                                        ? "info"
+                                        : "dark"
+                                    }`}
+                                  >
+                                    {bug.status}
+                                  </span>
+                                </p>
+                              </div>
+                              <div className="col-4">
+                                <p>
+                                  Type:{" "}
+                                  <span
+                                    className={`badge badge-${
+                                      bug.type === "Bug"
+                                        ? "success"
+                                        : bug.type === "Issue" ||
+                                          bug.type === "Task"
+                                        ? "warning"
+                                        : bug.type === "Design"
+                                        ? "info"
+                                        : bug.type === "Test Case"
+                                        ? "light"
+                                        : "primary"
+                                    }`}
+                                  >
+                                    {bug.type}
+                                  </span>
+                                </p>
+                              </div>
                             </div>
-                            <div className="d-flex">
-                              <p className="mr-2">
-                                Status:{" "}
-                                <span
-                                  className={`badge badge-${
-                                    bug.status === "Closed" ||
-                                    bug.status === "Resolved"
-                                      ? "success"
-                                      : bug.status === "Active"
-                                      ? "info"
-                                      : "dark"
-                                  }`}
-                                >
-                                  {bug.status}
-                                </span>
-                              </p>
-                              <p>
-                                Type:{" "}
-                                <span
-                                  className={`badge badge-${
-                                    bug.type === "Bug"
-                                      ? "success"
-                                      : bug.type === "Issue" ||
-                                        bug.type === "Task"
-                                      ? "warning"
-                                      : bug.type === "Design"
-                                      ? "info"
-                                      : bug.type === "Test Case"
-                                      ? "light"
-                                      : "primary"
-                                  }`}
-                                >
-                                  {bug.type}
-                                </span>
-                              </p>
+                            <div className="row d-flex justify-content-around">
+                              <div className="col-6">
+                                <p>
+                                  Created:{" "}
+                                  <span className="badge badge-dark">
+                                    {moment(bug.createdAt).calendar()}
+                                  </span>
+                                </p>
+                              </div>
+                              <div className="col-6">
+                                <p>
+                                  Project:{" "}
+                                  <span className="badge badge-dark">
+                                    {bug.project}
+                                  </span>
+                                </p>
+                              </div>
                             </div>
-                            <div className="d-flex">
-                              <p>
-                                Project:{" "}
-                                <span className="badge badge-dark">
-                                  {bug.project}
-                                </span>
-                              </p>
-                              <p>
-                                Created:{" "}
-                                <span className="badge badge-dark">
-                                  {moment(bug.createdAt).calendar()}
-                                </span>
-                              </p>
+                            <div className="row d-flex justify-content-around">
+                              <div className="col-6">
+                                <p>
+                                  Updated:{" "}
+                                  <span className="badge badge-dark">
+                                    {moment(bug.updatedAt).calendar()}
+                                  </span>
+                                </p>
+                              </div>
+                              <div className="col-6">
+                                <p>
+                                  Assigned To:{" "}
+                                  <span className="badge badge-dark">
+                                    {bug.assignmentTo}
+                                  </span>
+                                </p>
+                              </div>
                             </div>
                           </div>
-                          <div className="col-md-4">
+                        </div>
+                        <div className="row">
+                          <div className="col">
                             <Link
                               className="btn btn-light btn-block"
                               to={`/bug/${bug._id}`}
                             >
                               View
                             </Link>
+                          </div>
+                          <div className="col">
                             <Link
                               className="btn btn-info btn-block"
                               to={`/bug/${bug._id}/edit`}
                             >
                               Edit
                             </Link>
+                          </div>
+                          <div className="col mt-sm-1">
                             <button
                               className="btn btn-danger btn-block"
                               onClick={() => deleteBugHandler(bug._id)}

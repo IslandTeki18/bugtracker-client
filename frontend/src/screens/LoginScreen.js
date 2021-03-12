@@ -29,9 +29,9 @@ const LoginScreen = ({ history, location }) => {
     <>
       {/* Login Form Section */}
       <section className="pt-5 text-white">
-        <div className="container">
-          <div className="row justify-content-md-center">
-            <div className="col-xs-6 col-md-6">
+        <div className="container-fluid">
+          <div className="row">
+            <div className="col-12 col-md-6 offset-md-3">
               {loading && <Loader />}
               {error && <Message variant="danger">{error}</Message>}
               <h1 className="text-white">Login</h1>
@@ -63,7 +63,10 @@ const LoginScreen = ({ history, location }) => {
                 </button>
               </form>
               <p className="pt-5">
-                Don't have an account? <Link to="/register" className="text-white">Register</Link>{" "}
+                Don't have an account?{" "}
+                <Link to="/register" className="text-white">
+                  Register
+                </Link>{" "}
                 here!
               </p>
             </div>
