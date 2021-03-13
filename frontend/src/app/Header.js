@@ -37,6 +37,11 @@ const Header = () => {
                 </Link>
               </li>
               <li className="nav-item active">
+                <Link className="nav-link" to="/profile/settings">
+                  Settings
+                </Link>
+              </li>
+              <li className="nav-item active">
                 <Link className="nav-link" onClick={logoutHandler} to="/">
                   Logout
                 </Link>

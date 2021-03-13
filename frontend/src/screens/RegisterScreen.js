@@ -36,7 +36,7 @@ const RegisterScreen = ({ history, location }) => {
       <section className="pt-5 text-white">
         <div className="container">
           <div className="row justify-content-md-center">
-            <div className="col-6 col-md-6">
+            <div className="col-12 col-md-6">
               <h1 className="text-white">Register</h1>
               {loading && <Loader />}
               {error && <Message variant="danger">{error}</Message>}

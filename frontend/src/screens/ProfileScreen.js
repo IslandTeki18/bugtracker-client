@@ -76,31 +76,29 @@ const ProfileScreen = ({ match, history }) => {
       {/* Profile Controls */}
       <section className="pt-3" id="profile-controls">
         <div className="container">
-          <div className="row">
-            <div className=" col-sm-12 col-md-8 d-flex">
-              <h3 className="text-white pr-4">User Dashboard</h3>
+          <div className="row row-cols-3">
+            <div className="col">
+              <h3 className="text-white">User Dashboard</h3>
             </div>
-            <div className="row">
-              <div className="col-sm-12 col-md-8">
-                <Route
-                  render={({ history }) => <SearchBox history={history} />}
-                />
-              </div>
-              <div className="col-md-4">
-                <button
-                  className="btn btn-primary btn-sm"
-                  onClick={createBugHandler}
-                >
-                  Add Bug
-                </button>
-              </div>
+            <div className="col">
+              <Route
+                render={({ history }) => <SearchBox history={history} />}
+              />
+            </div>
+            <div className="col">
+              <button
+                className="btn btn-primary btn-sm"
+                onClick={createBugHandler}
+              >
+                <i className="fas fa-plus mr-2"></i>Add Bug
+              </button>
             </div>
           </div>
         </div>
       </section>
       {/* Bug List Table */}
       <section className="p-3" id="bug-list-table">
-        <div className="container">
+        <div className="container-fluid">
           {createLoading && <Loader />}
           {createError && <Message variant="danger">{createError}</Message>}
           {deleteLoading && <Loader />}
@@ -118,26 +116,29 @@ const ProfileScreen = ({ match, history }) => {
             <>
               <div className="row">
                 {bugs.map((bug, idx) => (
-                  <div className="col-12 col-sm-12 col-md-6 mb-3" key={idx}>
+                  <div
+                    className="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-4 mb-3"
+                    key={idx}
+                  >
                     <div className="mr-5 card">
                       <div className="card-header">
-                        <h4 className="text-white text-truncate">
+                        <h4 className="text-white text-center">
                           {bug.title}
                         </h4>
                       </div>
                       <div className="card-body text-white">
                         <div className="row">
                           <div className="col-12">
-                            <div className="row d-flex justify-content-between">
-                              <div className="col-4">
+                            <div className="row row-cols-sm-6 d-flex justify-content-between">
+                              <div className="col-6 col-sm-6 col-md-4">
                                 <p className="mr-3">
                                   ID:{" "}
                                   <span className="badge badge-dark">
-                                    {bug._id.substring(0, 10)}
+                                    {bug._id.substring(0, 8)}
                                   </span>
                                 </p>
                               </div>
-                              <div className="col-4">
+                              <div className="col-6 col-sm-6 col-md-4">
                                 <p className="mr-2">
                                   Status:{" "}
                                   <span
@@ -154,7 +155,7 @@ const ProfileScreen = ({ match, history }) => {
                                   </span>
                                 </p>
                               </div>
-                              <div className="col-4">
+                              <div className="col-12 col-sm-6 col-md-4">
                                 <p>
                                   Type:{" "}
                                   <span
@@ -205,7 +206,7 @@ const ProfileScreen = ({ match, history }) => {
                               </div>
                               <div className="col-6">
                                 <p>
-                                  Assigned To:{" "}
+                                  Assigned:{" "}
                                   <span className="badge badge-dark">
                                     {bug.assignmentTo}
                                   </span>
@@ -231,7 +232,7 @@ const ProfileScreen = ({ match, history }) => {
                               Edit
                             </Link>
                           </div>
-                          <div className="col mt-sm-1">
+                          <div className="col mt-sm-1 mt-lg-0">
                             <button
                               className="btn btn-danger btn-block"
                               onClick={() => deleteBugHandler(bug._id)}

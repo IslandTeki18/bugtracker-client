@@ -17,7 +17,7 @@ const SearchBox = ({ history }) => {
       <input
         type="search"
         name="q"
-        placeholder="Search Items..."
+        placeholder="Search by title..."
         onChange={(e) => setKeyWord(e.target.value)}
         className="form-control mr-sm-2"
         aria-label="searchProduct"
