@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { updateUserProfile, getUserDetails } from "../redux/actions/userActions";
+import { updateUserProfile, getUserDetails } from "../../redux/actions/user.actions";
 import Loader from "../../components/Loader";
 import Message from "../../components/Message";
-import { USER_UPDATE_RESET } from "../redux/constants/userConstants";
+import { USER_UPDATE_RESET } from "../../redux/constants/user.constants";
 
 const ProfileSettingsScreen = ({ location, history }) => {
   const [username, setUsername] = useState("");

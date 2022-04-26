@@ -6,7 +6,7 @@ import Footer from "./components/Footer";
 
 // import screens
 import LoginScreen from "./screens/loginScreen/LoginScreen";
-import RegisterScreen from "./screens/RegisterScreen";
+import RegisterScreen from "./screens/registerScreen/RegisterScreen";
 import LandingScreen from "./screens/landingScreen/LandingScreen";
 import ProfileScreen from "./screens/profileScreen/ProfileScreen";
 import BugDetailsScreen from "./screens/bugDetailsScreen/BugDetailsScreen";

@@ -5,12 +5,10 @@ import {
   listBugDetails,
   createBugNotes,
   removeBugNoteById,
-} from "../redux/actions/bugActions";
-import { BUG_NOTES_RESET } from "../redux/constants/bugConstants";
-import moment from "moment";
+} from "../../redux/actions/bug.actions";
+import { BUG_NOTES_RESET } from "../../redux/constants/bug.constants";
 import Loader from "../../components/Loader";
 import Message from "../../components/Message";
-import ReactHtmlParser from "react-html-parser";
 
 const BugDetailsScreen = ({ match }) => {
   const dispatch = useDispatch();
@@ -35,7 +33,6 @@ const BugDetailsScreen = ({ match }) => {
   } = bugNotesDelete;
 
   useEffect(() => {
-    // on page load, set scroll to top of screen
     window.scrollTo(0, 0);
 
     if (notesSuccess) {
@@ -114,7 +111,7 @@ const BugDetailsScreen = ({ match }) => {
                     <u>Description:</u>
                   </h6>{" "}
                   <br />
-                  {ReactHtmlParser(bug.desc)}
+                  {bug.desc}
                 </div>
                 {bug.reproSteps === "" ? null : (
                   <div className="pt-3 text-white">
@@ -142,7 +139,7 @@ const BugDetailsScreen = ({ match }) => {
                         <div className="d-flex justify-content-between">
                           <p>
                             <i>
-                              <b>{moment(note.createdAt).calendar()}</b>
+                              <b>{note.createdAt}</b>
                             </i>
                           </p>
                           <div className="btn-group">
@@ -159,7 +156,7 @@ const BugDetailsScreen = ({ match }) => {
                             </button>
                           </div>
                         </div>
-                        <p>{ReactHtmlParser(note.comment)}</p>
+                        <p>{note.comment}</p>
                       </li>
                     ))}
                   </ul>

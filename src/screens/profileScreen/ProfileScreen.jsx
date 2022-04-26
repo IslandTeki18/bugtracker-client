@@ -1,14 +1,16 @@
 import { useEffect } from "react";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { createBug, listBugs, deleteBug } from "../redux/actions/bugActions";
+import {
+  createBug,
+  listBugs,
+  deleteBug,
+} from "../../redux/actions/bug.actions";
 import { Route } from "react-router-dom";
 import Loader from "../../components/Loader";
 import Message from "../../components/Message";
-import Paginate from "../../components/Paginate";
 import SearchBox from "../../components/SearchBox";
-import moment from "moment";
-import { BUG_CREATE_RESET } from "../redux/constants/bugConstants";
+import { BUG_CREATE_RESET } from "../../redux/constants/bug.constants";
 
 const ProfileScreen = ({ match, history }) => {
   const keyword = match.params.keyword;
@@ -122,9 +124,7 @@ const ProfileScreen = ({ match, history }) => {
                   >
                     <div className="mr-5 card">
                       <div className="card-header">
-                        <h4 className="text-white text-center">
-                          {bug.title}
-                        </h4>
+                        <h4 className="text-white text-center">{bug.title}</h4>
                       </div>
                       <div className="card-body text-white">
                         <div className="row">
@@ -182,7 +182,7 @@ const ProfileScreen = ({ match, history }) => {
                                 <p>
                                   Created:{" "}
                                   <span className="badge badge-dark">
-                                    {moment(bug.createdAt).calendar()}
+                                    {bug.createdAt}
                                   </span>
                                 </p>
                               </div>
@@ -200,7 +200,7 @@ const ProfileScreen = ({ match, history }) => {
                                 <p>
                                   Updated:{" "}
                                   <span className="badge badge-dark">
-                                    {moment(bug.updatedAt).calendar()}
+                                    {bug.updatedAt}
                                   </span>
                                 </p>
                               </div>
@@ -246,11 +246,6 @@ const ProfileScreen = ({ match, history }) => {
                   </div>
                 ))}
               </div>
-              <Paginate
-                pages={pages}
-                page={page}
-                keyword={keyword ? keyword : ""}
-              />
             </>
           )}
         </div>

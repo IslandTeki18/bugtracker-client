@@ -2,9 +2,9 @@ import { useEffect, useState } from "react";
 import Loader from "../../components/Loader";
 import Message from "../../components/Message";
 import RichTextEditor from "../../components/RichTextEditor";
-import { updateBug, listBugDetails } from "../redux/actions/bugActions";
+import { updateBug, listBugDetails } from "../../redux/actions/bug.actions";
 import { useDispatch, useSelector } from "react-redux";
-import { BUG_UPDATE_RESET } from "../redux/constants/bugConstants";
+import { BUG_UPDATE_RESET } from "../../redux/constants/bug.constants";
 
 const BugEditScreen = ({ match, history }) => {
   const bugId = match.params.id;

@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { register } from "../redux/actions/userActions";
+import { register } from "../../redux/actions/user.actions";
 import Loader from "../../components/Loader";
 import Message from "../../components/Message";
 
