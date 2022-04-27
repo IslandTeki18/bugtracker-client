@@ -16,6 +16,11 @@ import {
 } from "../constants/user.constants";
 import axios from "axios";
 
+const req =
+  process.env.NODE_ENV !== "production"
+    ? "/api/users"
+    : "https://bugtrackerapp7923.herokuapp.com/api/bugs/api/users";
+
 export const login = (username, password) => async (dispatch) => {
   try {
     dispatch({ type: USER_LOGIN_REQUEST });
@@ -24,11 +29,7 @@ export const login = (username, password) => async (dispatch) => {
         "Content-Type": "application/json",
       },
     };
-    const { data } = await axios.post(
-      "/api/users",
-      { username, password },
-      config
-    );
+    const { data } = await axios.post(`${req}`, { username, password }, config);
 
     dispatch({
       type: USER_LOGIN_SUCCESS,
@@ -64,7 +65,7 @@ export const register = (username, password) => async (dispatch) => {
       },
     };
     const { data } = await axios.post(
-      "/api/users/register",
+      `${req}/register`,
       { username, password },
       config
     );
@@ -103,7 +104,7 @@ export const getUserDetails = (id) => async (dispatch, getState) => {
       },
     };
 
-    const { data } = await axios.get(`/api/users/${id}`, config);
+    const { data } = await axios.get(`${req}/${id}`, config);
 
     dispatch({ type: USER_DETAILS_SUCCESS, payload: data });
   } catch (error) {
@@ -133,11 +134,7 @@ export const updateUserProfile = (user) => async (dispatch, getState) => {
         Authorization: `Bearer ${userInfo.token}`,
       },
     };
-    const { data } = await axios.put(
-      "/api/users/settings",
-      user,
-      config
-    );
+    const { data } = await axios.put(`${req}/settings`, user, config);
     dispatch({
       type: USER_UPDATE_SUCCESS,
       payload: data,

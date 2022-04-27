@@ -23,6 +23,11 @@ import {
 } from "../constants/bug.constants";
 import axios from "axios";
 
+const req =
+  process.env.NODE_ENV !== "production"
+    ? "/api/bugs"
+    : "https://bugtrackerapp7923.herokuapp.com/api/bugs/api/bugs";
+
 export const createBug = () => async (dispatch, getState) => {
   try {
     dispatch({ type: BUG_CREATE_REQUEST });
@@ -35,7 +40,7 @@ export const createBug = () => async (dispatch, getState) => {
         Authorization: `Bearer ${userInfo.token}`,
       },
     };
-    const { data } = await axios.post(`/api/bugs`, {}, config);
+    const { data } = await axios.post(`${req}`, {}, config);
 
     dispatch({
       type: BUG_CREATE_SUCCESS,
@@ -52,30 +57,32 @@ export const createBug = () => async (dispatch, getState) => {
   }
 };
 
-export const listBugs = (keyword = "", pageNumber = "") => async (
-  dispatch,
-  getState
-) => {
-  try {
-    dispatch({ type: BUG_LIST_REQUEST });
-    const {
-      userLogin: { userInfo },
-    } = getState();
-    const config = {
-      headers: { Authorization: `Bearer ${userInfo.token}` },
-    };
-    const { data } = await axios.get(`/api/bugs?keyword=${keyword}&pageNumber=${pageNumber}`, config);
-    dispatch({ type: BUG_LIST_SUCCESS, payload: data });
-  } catch (error) {
-    dispatch({
-      type: BUG_LIST_FAIL,
-      payload:
-        error.response && error.response.data.message
-          ? error.response.data.message
-          : error.message,
-    });
-  }
-};
+export const listBugs =
+  (keyword = "", pageNumber = "") =>
+  async (dispatch, getState) => {
+    try {
+      dispatch({ type: BUG_LIST_REQUEST });
+      const {
+        userLogin: { userInfo },
+      } = getState();
+      const config = {
+        headers: { Authorization: `Bearer ${userInfo.token}` },
+      };
+      const { data } = await axios.get(
+        `${req}?keyword=${keyword}&pageNumber=${pageNumber}`,
+        config
+      );
+      dispatch({ type: BUG_LIST_SUCCESS, payload: data });
+    } catch (error) {
+      dispatch({
+        type: BUG_LIST_FAIL,
+        payload:
+          error.response && error.response.data.message
+            ? error.response.data.message
+            : error.message,
+      });
+    }
+  };
 
 export const listBugDetails = (id) => async (dispatch, getState) => {
   try {
@@ -86,7 +93,7 @@ export const listBugDetails = (id) => async (dispatch, getState) => {
     const config = {
       headers: { Authorization: `Bearer ${userInfo.token}` },
     };
-    const { data } = await axios.get(`/api/bugs/${id}`, config);
+    const { data } = await axios.get(`${req}/${id}`, config);
     dispatch({ type: BUG_DETAILS_SUCCESS, payload: data });
   } catch (error) {
     dispatch({
@@ -108,7 +115,7 @@ export const deleteBug = (id) => async (dispatch, getState) => {
     const config = {
       headers: { Authorization: `Bearer ${userInfo.token}` },
     };
-    await axios.delete(`/api/bugs/${id}`, config);
+    await axios.delete(`${req}/${id}`, config);
     dispatch({ type: BUG_DELETE_SUCCESS });
   } catch (error) {
     dispatch({
@@ -133,7 +140,7 @@ export const updateBug = (bug) => async (dispatch, getState) => {
         Authorization: `Bearer ${userInfo.token}`,
       },
     };
-    const { data } = await axios.put(`/api/bugs/${bug._id}`, bug, config);
+    const { data } = await axios.put(`${req}/${bug._id}`, bug, config);
     dispatch({ type: BUG_UPDATE_SUCCESS, payload: data });
   } catch (error) {
     dispatch({
@@ -146,60 +153,56 @@ export const updateBug = (bug) => async (dispatch, getState) => {
   }
 };
 
-export const createBugNotes = (bugId, comment) => async (
-  dispatch,
-  getState
-) => {
-  try {
-    dispatch({ type: BUG_NOTES_REQUEST });
-    const {
-      userLogin: { userInfo },
-    } = getState();
-    const config = {
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${userInfo.token}`,
-      },
-    };
-    await axios.post(`/api/bugs/${bugId}/notes`, comment, config);
-    dispatch({ type: BUG_NOTES_SUCCESS });
-  } catch (error) {
-    dispatch({
-      type: BUG_NOTES_FAIL,
-      payload:
-        error.response && error.response.data.message
-          ? error.response.data.message
-          : error.message,
-    });
-  }
-};
+export const createBugNotes =
+  (bugId, comment) => async (dispatch, getState) => {
+    try {
+      dispatch({ type: BUG_NOTES_REQUEST });
+      const {
+        userLogin: { userInfo },
+      } = getState();
+      const config = {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${userInfo.token}`,
+        },
+      };
+      await axios.post(`${req}/${bugId}/notes`, comment, config);
+      dispatch({ type: BUG_NOTES_SUCCESS });
+    } catch (error) {
+      dispatch({
+        type: BUG_NOTES_FAIL,
+        payload:
+          error.response && error.response.data.message
+            ? error.response.data.message
+            : error.message,
+      });
+    }
+  };
 
-export const removeBugNoteById = (bugId, noteId) => async (
-  dispatch,
-  getState
-) => {
-  try {
-    dispatch({ type: BUG_NOTES_DELETE_REQUEST });
-    const {
-      userLogin: { userInfo },
-    } = getState();
-    const config = {
-      headers: {
-        Authorization: `Bearer ${userInfo.token}`,
-      },
-    };
-    await axios.delete(`/api/bugs/${bugId}/${noteId}`, config);
-    dispatch({ type: BUG_NOTES_DELETE_SUCCESS });
-  } catch (error) {
-    dispatch({
-      type: BUG_NOTES_DELETE_FAIL,
-      payload:
-        error.response && error.response.data.message
-          ? error.response.data.message
-          : error.message,
-    });
-  }
-};
+export const removeBugNoteById =
+  (bugId, noteId) => async (dispatch, getState) => {
+    try {
+      dispatch({ type: BUG_NOTES_DELETE_REQUEST });
+      const {
+        userLogin: { userInfo },
+      } = getState();
+      const config = {
+        headers: {
+          Authorization: `Bearer ${userInfo.token}`,
+        },
+      };
+      await axios.delete(`${req}/${bugId}/${noteId}`, config);
+      dispatch({ type: BUG_NOTES_DELETE_SUCCESS });
+    } catch (error) {
+      dispatch({
+        type: BUG_NOTES_DELETE_FAIL,
+        payload:
+          error.response && error.response.data.message
+            ? error.response.data.message
+            : error.message,
+      });
+    }
+  };
 
 // TODO: make this feature work. This is the edit a note by ID
 
