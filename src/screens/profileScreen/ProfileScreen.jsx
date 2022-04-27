@@ -12,7 +12,7 @@ import Message from "../../components/Message";
 import SearchBox from "../../components/SearchBox";
 import { BUG_CREATE_RESET } from "../../redux/constants/bug.constants";
 
-const ProfileScreen = ({ match, history }) => {
+const BugListScreen = ({ match, history }) => {
   const keyword = match.params.keyword;
   const pageNumber = match.params.pageNumber || 1;
 
@@ -254,4 +254,4 @@ const ProfileScreen = ({ match, history }) => {
   );
 };
 
-export default ProfileScreen;
+export default BugListScreen;

@@ -1,11 +1,12 @@
 import React from "react";
+import "./CommittedInfoSection.scss";
 
 const CommittedInfoSection = (props) => {
   return (
-    <section className="dkCommittedInfoSection pt-5">
-      <div className="container-fluid g-0">
-        <div className="row g-0">
-          <div className="col-12 col-lg-6 text-white px-5">
+    <section className="dkCommittedInfoSection py-5">
+      <div className="container">
+        <div className="row">
+          <div className="col-12 col-lg-6 text-white">
             <div className="fs-1 pb-3">
               Committed to <span className="text-primary">developers</span> in
               soving bugs and finishing their projects.
@@ -24,10 +25,9 @@ const CommittedInfoSection = (props) => {
           </div>
           <div className="col-12 mt-3 mt-lg-0 col-lg-6">
             <img
-              className="img-fluid"
+              className="image-header"
               src="https://images.unsplash.com/photo-1556761175-b413da4baf72?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=774&q=80"
               alt="placeholder"
-              height={400}
             />
           </div>
         </div>

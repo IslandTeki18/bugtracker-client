@@ -13,13 +13,11 @@ const LoginScreen = ({ history, location }) => {
   const userLogin = useSelector((state) => state.userLogin);
   const { loading, error, userInfo } = userLogin;
 
-  const redirect = location.search ? location.search.split("=")[1] : "/profile";
-
   useEffect(() => {
     if (userInfo) {
-      history.push(redirect);
+      history.push("/profile");
     }
-  }, [userInfo, redirect, history]);
+  }, [userInfo, history]);
 
   const submitHandler = (e) => {
     e.preventDefault();

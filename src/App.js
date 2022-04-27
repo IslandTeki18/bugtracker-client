@@ -12,6 +12,8 @@ import ProfileScreen from "./screens/profileScreen/ProfileScreen";
 import BugDetailsScreen from "./screens/bugDetailsScreen/BugDetailsScreen";
 import BugEditScreen from "./screens/bugEditScreen/BugEditScreen";
 import ProfileSettingsScreen from "./screens/profileSettingScreen/ProfileSettingsScreen";
+import DemoFooter from "./components/demoFooter/DemoFooter";
+import DemoHeader from "./components/demoHeader/DemoHeader";
 
 function App() {
   const userLogin = useSelector((state) => state.userLogin);
@@ -20,11 +22,13 @@ function App() {
   if (!userInfo) {
     return (
       <Router>
+        <DemoHeader />
         <main className="bg-dark">
           <Route exact path="/" component={LandingScreen} />
           <Route path="/login" component={LoginScreen} />
           <Route path="/register" component={RegisterScreen} />
         </main>
+        <DemoFooter />
       </Router>
     );
   }
