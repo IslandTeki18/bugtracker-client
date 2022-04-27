@@ -7,10 +7,8 @@ import {
   listBugs,
   deleteBug,
 } from "../../redux/actions/bug.actions";
-import { Route } from "react-router-dom";
 import Loader from "../../components/Loader";
 import Message from "../../components/Message";
-import SearchBox from "../../components/SearchBox";
 import { BUG_CREATE_RESET } from "../../redux/constants/bug.constants";
 
 const BugListScreen = ({ match, history }) => {
@@ -41,14 +39,11 @@ const BugListScreen = ({ match, history }) => {
   } = bugDelete;
 
   useEffect(() => {
+    window.scrollTo(0, 0);
     dispatch({ type: BUG_CREATE_RESET });
-    // if user is not logged in
     if (!userInfo) {
       history.push("/login");
     }
-    // auto scroll to top of page onload
-    window.scrollTo(0, 0);
-    // if create success, go to the new bug edit page
     if (createSuccess) {
       history.push(`/bug/${createdBug._id}/edit`);
     } else {
@@ -158,12 +153,15 @@ const BugListScreen = ({ match, history }) => {
     ));
   }
 
+  if (loading) return <Loader />;
+
   return (
     <div className="dkProfileScreen py-5 bg-light" id="bug-list-table">
       <div className="container-fluid">
         {(createLoading || deleteLoading) && <Loader />}
         {createError && <Message variant="danger">{createError}</Message>}
         {deleteError && <Message variant="danger">{deleteError}</Message>}
+        {error && <Message variant="danger">{error}</Message>}
         <div className="row">
           <div className="col-12">
             <button
