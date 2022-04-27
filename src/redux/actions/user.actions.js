@@ -19,7 +19,7 @@ import axios from "axios";
 const req =
   process.env.NODE_ENV !== "production"
     ? "/api/users"
-    : "https://bugtrackerapp7923.herokuapp.com/api/bugs/api/users";
+    : "https://bugtrackerapp7923.herokuapp.com/api/users";
 
 export const login = (username, password) => async (dispatch) => {
   try {
