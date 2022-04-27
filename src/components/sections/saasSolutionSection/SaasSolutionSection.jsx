@@ -4,7 +4,7 @@ import { APP_FEATURES } from "../../../utils/tempData";
 const SaasSolutionSection = (props) => {
   function renderFeatureCards() {
     return APP_FEATURES.map((feature) => (
-      <div className="col-12 col-sm-6 col-lg-3 pt-3 pt-lg-0">
+      <div className="col-12 col-sm-6 col-lg-3 pt-3 pt-lg-0 text-dark">
         <div class="card text-center p-2" style={{ height: "230px" }}>
           <icon className={feature.icon} style={{ fontSize: "30px" }} />
           <div className="fs-5 fw-bold py-3">{feature.title}</div>
@@ -14,9 +14,9 @@ const SaasSolutionSection = (props) => {
     ));
   }
   return (
-    <section className="dkSaasSolutionSection pt-5">
-      <div className="container">
-        <div className="row text-white">
+    <section className="dkSaasSolutionSection bg-dark text-light py-5">
+      <div className="container py-3">
+        <div className="row">
           <div className="col-12 col-md-6">
             <p className="fs-2">
               Saas Solution for{" "}

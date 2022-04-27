@@ -14,6 +14,11 @@ import BugEditScreen from "./screens/bugEditScreen/BugEditScreen";
 import ProfileSettingsScreen from "./screens/profileSettingScreen/ProfileSettingsScreen";
 import DemoFooter from "./components/demoFooter/DemoFooter";
 import DemoHeader from "./components/demoHeader/DemoHeader";
+import AboutUsScreen from "./screens/aboutUsScreen/AboutUsScreen";
+import BlogScreen from "./screens/blogScreen/BlogScreen";
+import CompanyScreen from "./screens/companyScreen/CompanyScreen";
+import ContactScreen from "./screens/contactScreen/ContactScreen";
+import ServicesScreen from "./screens/servicesScreen/ServicesScreen";
 
 function App() {
   const userLogin = useSelector((state) => state.userLogin);
@@ -23,8 +28,13 @@ function App() {
     return (
       <Router>
         <DemoHeader />
-        <main className="bg-dark">
+        <main>
           <Route exact path="/" component={LandingScreen} />
+          <Route exact path="/about-us" component={AboutUsScreen} />
+          <Route exact path="/blog" component={BlogScreen} />
+          <Route exact path="/company" component={CompanyScreen} />
+          <Route exact path="/contact" component={ContactScreen} />
+          <Route exact path="/services" component={ServicesScreen} />
           <Route path="/login" component={LoginScreen} />
           <Route path="/register" component={RegisterScreen} />
         </main>

@@ -1,0 +1,17 @@
+.dkSubscriptionBanner {
+  .email-input-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    @media screen and (max-width: 769px) {
+      flex-direction: column;
+      .newsletter-input {
+        margin-bottom: 15px;
+      }
+    }
+    .newsletter-input {
+      max-width: 450px;
+      width: 100%;
+    }
+  }
+}

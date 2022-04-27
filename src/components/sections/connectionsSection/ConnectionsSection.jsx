@@ -4,9 +4,9 @@ import "./ConnectionsSection.scss";
 const ConnectionsSection = () => {
   return (
     <section className="dkConnectionsSection py-5">
-      <div className="container">
+      <div className="container py-3">
         <div className="row">
-          <div className="col-12 col-lg-4 pb-3 pb-lg-0 text-white">
+          <div className="col-12 col-lg-4 pb-3 pb-lg-0">
             <div className="fs-2 pb-3">
               Simple Solutions for <span className="text-primary">Complex</span>{" "}
               Projects

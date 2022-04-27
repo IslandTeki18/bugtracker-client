@@ -24,3 +24,21 @@ export const APP_FEATURES = [
       "Bug tracker is here to help you keep your thought organized so that you can stay on track with your projects.",
   },
 ];
+
+export const BASIC_PROCESS_STEPS = [
+  {
+    title: "Project Initialization",
+    description:
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed luctus eget justo et iaculis.",
+  },
+  {
+    title: "Design Process",
+    description:
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed luctus eget justo et iaculis.",
+  },
+  {
+    title: "Development",
+    description:
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed luctus eget justo et iaculis.",
+  },
+];

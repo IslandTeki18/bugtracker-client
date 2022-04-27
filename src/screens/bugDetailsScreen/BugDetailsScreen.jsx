@@ -70,7 +70,7 @@ const BugDetailsScreen = ({ match }) => {
             <div className="row">
               <div className="col-md-8">
                 <div className="bug-title-wrap d-flex">
-                  <h3 className="text-white">
+                  <h3 className="">
                     {bug.title}{" "}
                     <span
                       className={`badge badge-${
@@ -93,29 +93,29 @@ const BugDetailsScreen = ({ match }) => {
                   </Link>
                 </div>
                 <div className="bug-info-wrap d-flex">
-                  <h6 className="text-white text-truncate mr-3">
+                  <h6 className=" text-truncate mr-3">
                     <span className="badge badge-light mr-2">Assigned to:</span>
                     {bug.assignmentTo}
                   </h6>
-                  <h6 className="text-white text-truncate mr-3">
+                  <h6 className=" text-truncate mr-3">
                     <span className="badge badge-light mr-2">Type:</span>
                     {bug.type}
                   </h6>
-                  <h6 className="text-white text-truncate">
+                  <h6 className=" text-truncate">
                     <span className="badge badge-light mr-2">Project:</span>
                     {bug.project}
                   </h6>
                 </div>
-                <div className="pt-2 text-white">
-                  <h6 className="text-white">
+                <div className="pt-2 ">
+                  <h6 className="">
                     <u>Description:</u>
                   </h6>{" "}
                   <br />
                   {bug.desc}
                 </div>
                 {bug.reproSteps === "" ? null : (
-                  <div className="pt-3 text-white">
-                    <h6 className="text-white">
+                  <div className="pt-3 ">
+                    <h6 className="">
                       <u>Repro Steps:</u>
                     </h6>{" "}
                     <br />
@@ -124,7 +124,7 @@ const BugDetailsScreen = ({ match }) => {
                 )}
                 {/* Notes Section */}
                 <div className="notes-wrapper pt-3">
-                  <h6 className="text-white">
+                  <h6 className="">
                     <u>Notes</u>
                   </h6>
                   {bug.notes.length === 0 && (
@@ -133,7 +133,7 @@ const BugDetailsScreen = ({ match }) => {
                   <ul className="list-group list-group-flush">
                     {bug.notes.map((note) => (
                       <li
-                        className="list-group-item bg-dark text-white"
+                        className="list-group-item bg-dark "
                         key={note._id}
                       >
                         <div className="d-flex justify-content-between">
@@ -202,10 +202,10 @@ const BugDetailsScreen = ({ match }) => {
               <div className="col-md-4">
                 <ul>
                   <li className="pt-2">
-                    <h6 className="text-white">Priority: {bug.priority}</h6>
+                    <h6 className="">Priority: {bug.priority}</h6>
                   </li>
                   <li className="pt-2">
-                    <h6 className="text-white">
+                    <h6 className="">
                       Severity:{" "}
                       <span
                         className={`badge badge-${
@@ -224,17 +224,17 @@ const BugDetailsScreen = ({ match }) => {
                     </h6>
                   </li>
                   <li className="pt-2">
-                    <h6 className="text-white">
+                    <h6 className="">
                       Original Estimate: {bug.originalEstimate}
                     </h6>
                   </li>
                   <li className="pt-2">
-                    <h6 className="text-white">
+                    <h6 className="">
                       Hours Spent: {bug.hoursSpent}
                     </h6>
                   </li>
                   <li className="pt-2">
-                    <h6 className="text-white">
+                    <h6 className="">
                       Level of Effort: {bug.levelOfEffort}
                     </h6>
                   </li>

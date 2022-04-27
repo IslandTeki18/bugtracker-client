@@ -103,7 +103,7 @@ const BugEditScreen = ({ match, history }) => {
               <>
                 <div className="col-md-8">
                   <form>
-                    <div className="mb-3 text-white">
+                    <div className="mb-3 ">
                       <label htmlFor="titleInputField" className="form-label">
                         Title
                       </label>
@@ -116,7 +116,7 @@ const BugEditScreen = ({ match, history }) => {
                         onChange={(e) => setTitle(e.target.value)}
                       />
                     </div>
-                    <div className="mb-3 text-white">
+                    <div className="mb-3 ">
                       <label htmlFor="projectInputField" className="form-label">
                         Project
                       </label>
@@ -129,7 +129,7 @@ const BugEditScreen = ({ match, history }) => {
                         onChange={(e) => setProject(e.target.value)}
                       />
                     </div>
-                    <div className="mb-3 text-white">
+                    <div className="mb-3 ">
                       <label
                         htmlFor="typeInputField"
                         className="form-label pr-2"
@@ -170,7 +170,7 @@ const BugEditScreen = ({ match, history }) => {
                         <option value="New">New</option>
                       </select>
                     </div>
-                    <div className="mb-3 text-white">
+                    <div className="mb-3 ">
                       <label
                         htmlFor="repoStepsInputField"
                         className="form-label"
@@ -186,7 +186,7 @@ const BugEditScreen = ({ match, history }) => {
                         onChange={(e) => setAssignmentTo(e.target.value)}
                       />
                     </div>
-                    <div className="mb-3 text-white">
+                    <div className="mb-3 ">
                       <label
                         htmlFor="reproStepsInputField"
                         className="form-label"
@@ -205,7 +205,7 @@ const BugEditScreen = ({ match, history }) => {
                     <div className="mb-3">
                       <label
                         htmlFor="descriptionTextArea"
-                        className="form-label text-white"
+                        className="form-label "
                       >
                         Description
                       </label>
@@ -220,7 +220,7 @@ const BugEditScreen = ({ match, history }) => {
                     </div>
                   </form>
                 </div>
-                <div className="col-md-4 text-white pt-4">
+                <div className="col-md-4  pt-4">
                   <form>
                     <div className="mb-3">
                       <label

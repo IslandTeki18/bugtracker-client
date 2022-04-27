@@ -17,7 +17,7 @@ const LoginScreen = ({ history, location }) => {
     if (userInfo) {
       history.push("/profile");
     }
-  }, [userInfo, history]);
+  }, [userInfo, , history]);
 
   const submitHandler = (e) => {
     e.preventDefault();
@@ -26,13 +26,13 @@ const LoginScreen = ({ history, location }) => {
   return (
     <>
       {/* Login Form Section */}
-      <section className="pt-5 text-white">
+      <section className="pt-5 ">
         <div className="container-fluid">
           <div className="row">
             <div className="col-12 col-md-6 offset-md-3">
               {loading && <Loader />}
               {error && <Message variant="danger">{error}</Message>}
-              <h1 className="text-white">Login</h1>
+              <h1 className="">Login</h1>
               <form onSubmit={submitHandler}>
                 <div className="form-group">
                   <label htmlFor="usernameInput">Username</label>
@@ -62,7 +62,7 @@ const LoginScreen = ({ history, location }) => {
               </form>
               <p className="pt-5">
                 Don't have an account?{" "}
-                <Link to="/register" className="text-white">
+                <Link to="/register" className="">
                   Register
                 </Link>{" "}
                 here!

@@ -33,11 +33,11 @@ const RegisterScreen = ({ history, location }) => {
   return (
     <>
       {/* Login Form Section */}
-      <section className="pt-5 text-white">
+      <section className="pt-5 ">
         <div className="container">
           <div className="row justify-content-md-center">
             <div className="col-12 col-md-6">
-              <h1 className="text-white">Register</h1>
+              <h1 className="">Register</h1>
               {loading && <Loader />}
               {error && <Message variant="danger">{error}</Message>}
               {message && <Message variant="danger">{message}</Message>}
@@ -81,7 +81,7 @@ const RegisterScreen = ({ history, location }) => {
               </form>
               <p className="pt-5">
                 Have an account?{" "}
-                <Link to="/" className="text-white">
+                <Link to="/" className="">
                   Login
                 </Link>{" "}
                 here!

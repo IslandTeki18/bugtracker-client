@@ -80,7 +80,7 @@ const BugListScreen = ({ match, history }) => {
         <div className="container">
           <div className="row row-cols-3">
             <div className="col">
-              <h3 className="text-white">User Dashboard</h3>
+              <h3 className="">User Dashboard</h3>
             </div>
             <div className="col">
               <Route
@@ -124,9 +124,9 @@ const BugListScreen = ({ match, history }) => {
                   >
                     <div className="mr-5 card">
                       <div className="card-header">
-                        <h4 className="text-white text-center">{bug.title}</h4>
+                        <h4 className=" text-center">{bug.title}</h4>
                       </div>
-                      <div className="card-body text-white">
+                      <div className="card-body ">
                         <div className="row">
                           <div className="col-12">
                             <div className="row row-cols-sm-6 d-flex justify-content-between">

@@ -4,9 +4,9 @@ import "./CommittedInfoSection.scss";
 const CommittedInfoSection = (props) => {
   return (
     <section className="dkCommittedInfoSection py-5">
-      <div className="container">
+      <div className="container py-5">
         <div className="row">
-          <div className="col-12 col-lg-6 text-white">
+          <div className="col-12 col-lg-6">
             <div className="fs-1 pb-3">
               Committed to <span className="text-primary">developers</span> in
               soving bugs and finishing their projects.

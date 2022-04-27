@@ -60,14 +60,14 @@ const ProfileSettingsScreen = ({ location, history }) => {
           {/* Title */}
           <div className="row">
             <div className="col-12 text-center">
-              <h1 className="text-white">User Settings</h1>
+              <h1 className="">User Settings</h1>
             </div>
           </div>
           {/* User Current Info */}
           <div className="row">
             <div className="col-md-6 offset-md-3">
-              <h5 className="text-white text-center">Current Settings</h5>
-              <h6 className="text-white my-5">Username: {user.username}</h6>
+              <h5 className=" text-center">Current Settings</h5>
+              <h6 className=" my-5">Username: {user.username}</h6>
             </div>
           </div>
           {/* User Settings Form */}
@@ -77,10 +77,10 @@ const ProfileSettingsScreen = ({ location, history }) => {
                 {loading && <Loader />}
                 {error && <Message variant="danger">{error}</Message>}
                 {message && <Message>{message}</Message>}
-                <h5 className="text-white text-center">
+                <h5 className=" text-center">
                   Change Username & Password
                 </h5>
-                <div className="form-group text-white">
+                <div className="form-group ">
                   <label htmlFor="InputUsername">New Username</label>
                   <input
                     type="text"
@@ -94,7 +94,7 @@ const ProfileSettingsScreen = ({ location, history }) => {
             </div>
             <div className="row">
               <div className="col-md-6 offset-md-3">
-                <div className="form-group text-white">
+                <div className="form-group ">
                   <label htmlFor="InputPassword">Password</label>
                   <input
                     type="password"
@@ -104,7 +104,7 @@ const ProfileSettingsScreen = ({ location, history }) => {
                     onChange={(e) => setPassword(e.target.value)}
                   />
                 </div>
-                <div className="form-group text-white">
+                <div className="form-group ">
                   <label htmlFor="InputConfirmPassword">Confirm Password</label>
                   <input
                     type="password"
