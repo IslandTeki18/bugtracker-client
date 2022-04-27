@@ -1,15 +1,16 @@
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { login } from "../../redux/actions/user.actions";
 import { useDispatch, useSelector } from "react-redux";
 import Loader from "../../components/Loader";
 import Message from "../../components/Message";
 
-const LoginScreen = ({ history, location }) => {
+const LoginScreen = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [message, setMessage] = useState("");
   const dispatch = useDispatch();
+  const history = useHistory();
 
   const userLogin = useSelector((state) => state.userLogin);
   const { loading, error, userInfo } = userLogin;
