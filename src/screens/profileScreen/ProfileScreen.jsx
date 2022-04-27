@@ -190,7 +190,7 @@ const BugListScreen = ({ match, history }) => {
                   <th scope="col">Actions</th>
                 </tr>
               </thead>
-              <tbody>{renderBugRows()}</tbody>
+              <tbody>{bugs && renderBugRows()}</tbody>
             </table>
           </div>
         </div>
