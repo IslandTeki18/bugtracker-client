@@ -5,7 +5,7 @@ const DemoHeader = () => {
   return (
     <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
       <div className="container-fluid">
-        <NavLink className="navbar-brand" to="/">
+        <NavLink className="navbar-brand fs-3" to="/">
           Bug Tracker
         </NavLink>
         <button
@@ -52,6 +52,14 @@ const DemoHeader = () => {
               </NavLink>
             </li>
           </ul>
+          <div className="button-wrapper">
+            <NavLink className="btn btn-primary me-3" to="/login">
+              Sign In
+            </NavLink>
+            <NavLink className="btn btn-outline-primary" to="/register">
+              Sign Up
+            </NavLink>
+          </div>
         </div>
       </div>
     </nav>

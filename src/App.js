@@ -47,22 +47,20 @@ function App() {
     <Router>
       <Header />
       <main className="bg-dark">
-        <Route path="/register" component={RegisterScreen} />
         <Route exact path="/bug/:id" component={BugDetailsScreen} />
         <Route path="/bug/:id/edit" component={BugEditScreen} />
-        <Route exact path="/search/:keyword" component={ProfileScreen} />
+        <Route
+          path="/profile/settings"
+          component={ProfileSettingsScreen}
+        />
+        <Route exact path="/profile" component={ProfileScreen} />
         <Route
           exact
           path="/search/:keyword/page/:pageNumber"
           component={ProfileScreen}
         />
         <Route exact path="/page/:pageNumber" component={ProfileScreen} />
-        <Route
-          exact
-          path="/profile/settings"
-          component={ProfileSettingsScreen}
-        />
-        <Route exact path="/profile" component={ProfileScreen} />
+        <Route exact path="/search/:keyword" component={ProfileScreen} />
       </main>
       <Footer />
     </Router>
