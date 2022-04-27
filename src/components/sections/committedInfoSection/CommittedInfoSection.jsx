@@ -19,8 +19,18 @@ const CommittedInfoSection = (props) => {
               task, bugs, and goals.
             </p>
             <div className="button-wrapper d-flex justify-content-center align-items-center">
-              <button className="btn btn-primary me-5">Key Features</button>
-              <button className="btn btn-outline-primary">How we work?</button>
+              <button
+                className="btn btn-primary me-5"
+                onClick={() => alert("Only for demo purposes")}
+              >
+                Key Features
+              </button>
+              <button
+                className="btn btn-outline-primary"
+                onClick={() => alert("Only for demo purposes")}
+              >
+                How we work?
+              </button>
             </div>
           </div>
           <div className="col-12 mt-3 mt-lg-0 col-lg-6">

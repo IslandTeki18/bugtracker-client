@@ -35,7 +35,12 @@ const HowWeDoWorkSection = () => {
               porttitor est nibh at nulla. Praesent placerat enim ut ex
               tincidunt vehicula. Fusce sit amet dui tellus.
             </p>
-            <button className="btn btn-outline-primary">Learn More</button>
+            <button
+              className="btn btn-outline-primary"
+              onClick={() => alert("Only for demo purposes")}
+            >
+              Learn More
+            </button>
           </div>
           <div className="col-12 col-lg-6">{renderBasicProcessSteps()}</div>
         </div>

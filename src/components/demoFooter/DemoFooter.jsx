@@ -22,7 +22,7 @@ const DemoFooter = () => {
             <h5 className="mb-3">Quick links</h5>
             <ul className="list-unstyled text-muted">
               <li>
-                <a className="text-decoration-none text-light" href="#">
+                <a className="text-decoration-none disabled text-light" href="#">
                   Home
                 </a>
               </li>

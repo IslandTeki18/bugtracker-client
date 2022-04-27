@@ -1,0 +1,13 @@
+.dkProfileScreen {
+  .bug-id-label {
+    max-width: 60px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .dropstart {
+    .dropdown-toggle::before {
+      content: unset;
+    }
+  }
+}

@@ -32,8 +32,9 @@ const SubscriptionBanner = () => {
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 placeholder="Type your email..."
+                required
               />
-              <button type="submit" className="btn btn-primary" required>
+              <button type="submit" className="btn btn-primary">
                 Sign Up
               </button>
             </div>

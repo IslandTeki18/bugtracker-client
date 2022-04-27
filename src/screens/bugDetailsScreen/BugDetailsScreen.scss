@@ -1,0 +1,15 @@
+.dkBugDetailsScreen {
+  .bug-title-wrap {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+  }
+
+  .bug-info-wrap {
+    display: flex;
+    align-items: center;
+    @media screen and (max-width: 500px) {
+      display: unset;
+    }
+  }
+}
