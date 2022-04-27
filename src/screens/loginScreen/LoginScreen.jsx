@@ -8,6 +8,7 @@ import Message from "../../components/Message";
 const LoginScreen = ({ history, location }) => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const [message, setMessage] = useState("");
   const dispatch = useDispatch();
 
   const userLogin = useSelector((state) => state.userLogin);
@@ -21,8 +22,12 @@ const LoginScreen = ({ history, location }) => {
 
   const submitHandler = (e) => {
     e.preventDefault();
-    dispatch(login(username, password));
-    history.push("/profile");
+    try {
+      dispatch(login(username, password));
+    } catch (error) {
+      setMessage(error);
+      throw new Error(error);
+    }
   };
   return (
     <section className="pt-5 ">
@@ -31,6 +36,7 @@ const LoginScreen = ({ history, location }) => {
           <div className="col-12 col-md-6 offset-md-3">
             {loading && <Loader />}
             {error && <Message variant="danger">{error}</Message>}
+            {message && <Message variant="danger">{message}</Message>}
             <h1 className="">Login</h1>
             <form onSubmit={submitHandler}>
               <div className="form-group">
