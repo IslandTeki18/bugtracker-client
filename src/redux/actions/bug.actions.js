@@ -26,7 +26,7 @@ import axios from "axios";
 const req =
   process.env.NODE_ENV !== "production"
     ? "/api/bugs"
-    : "https://bugtrackerapp7923.herokuapp.com/api/bugs";
+    : "https://fierce-bastion-39206.herokuapp.com/api/bugs";
 
 export const createBug = () => async (dispatch, getState) => {
   try {
