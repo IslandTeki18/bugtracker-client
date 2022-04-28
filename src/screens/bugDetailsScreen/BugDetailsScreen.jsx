@@ -79,7 +79,7 @@ const BugDetailsScreen = () => {
                   bug.status === "New"
                     ? "warning"
                     : bug.status === "Active"
-                    ? "Info"
+                    ? "info"
                     : bug.status === "Closed"
                     ? "success"
                     : bug.status === "Resolved"
@@ -207,7 +207,7 @@ const BugDetailsScreen = () => {
                 <h6>
                   Severity:{" "}
                   <span
-                    className={`badge badge-${
+                    className={`badge bg-${
                       bug.severity === "1 - Critical"
                         ? "danger"
                         : bug.severity === "2 - High" ||
