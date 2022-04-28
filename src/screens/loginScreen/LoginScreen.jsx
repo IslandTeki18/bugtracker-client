@@ -40,7 +40,7 @@ const LoginScreen = () => {
             {message && <Message variant="danger">{message}</Message>}
             <h1 className="">Login</h1>
             <form onSubmit={submitHandler}>
-              <div className="form-group">
+              <div className="form-group mb-2">
                 <label htmlFor="usernameInput">Username</label>
                 <input
                   type="text"
@@ -51,7 +51,7 @@ const LoginScreen = () => {
                   onChange={(e) => setUsername(e.target.value)}
                 />
               </div>
-              <div className="form-group">
+              <div className="form-group mb-2">
                 <label htmlFor="passwordInput">Password</label>
                 <input
                   type="password"

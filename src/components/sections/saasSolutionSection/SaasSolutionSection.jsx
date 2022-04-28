@@ -3,10 +3,13 @@ import { APP_FEATURES } from "../../../utils/tempData";
 
 const SaasSolutionSection = (props) => {
   function renderFeatureCards() {
-    return APP_FEATURES.map((feature) => (
-      <div className="col-12 col-sm-6 col-lg-3 pt-3 pt-lg-0 text-dark">
-        <div class="card text-center p-2" style={{ height: "230px" }}>
-          <icon className={feature.icon} style={{ fontSize: "30px" }} />
+    return APP_FEATURES.map((feature, idx) => (
+      <div
+        className="col-12 col-sm-6 col-lg-3 pt-3 pt-lg-0 text-dark"
+        key={idx}
+      >
+        <div className="card text-center p-2" style={{ height: "230px" }}>
+          <i className={feature.icon} style={{ fontSize: "30px" }} />
           <div className="fs-5 fw-bold py-3">{feature.title}</div>
           <p className="fst-normal">{feature.description}</p>
         </div>

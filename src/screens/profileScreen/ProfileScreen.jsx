@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import "./ProfileScreen.scss";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import {
   createBug,
@@ -11,12 +11,9 @@ import Loader from "../../components/Loader";
 import Message from "../../components/Message";
 import { BUG_CREATE_RESET } from "../../redux/constants/bug.constants";
 
-const BugListScreen = ({ match, history }) => {
-  const keyword = match.params.keyword;
-  const pageNumber = match.params.pageNumber || 1;
-
+const BugListScreen = () => {
   const dispatch = useDispatch();
-
+  const history = useHistory();
   const bugCreate = useSelector((state) => state.bugCreate);
   const {
     loading: createLoading,
@@ -47,18 +44,9 @@ const BugListScreen = ({ match, history }) => {
     if (createSuccess) {
       history.push(`/bug/${createdBug._id}/edit`);
     } else {
-      dispatch(listBugs(keyword, pageNumber));
+      dispatch(listBugs())
     }
-  }, [
-    createSuccess,
-    history,
-    deleteSuccess,
-    createdBug,
-    userInfo,
-    dispatch,
-    keyword,
-    pageNumber,
-  ]);
+  }, [createSuccess, history, deleteSuccess, createdBug, userInfo, dispatch]);
 
   function priorityBadgeColor(priority) {
     switch (priority) {

@@ -1,4 +1,4 @@
-import { BrowserRouter as Router, Route } from "react-router-dom";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import { useSelector } from "react-redux";
 // Header and Footer Components
 import Header from "./components/Header";
@@ -19,16 +19,28 @@ import BlogScreen from "./screens/blogScreen/BlogScreen";
 import CompanyScreen from "./screens/companyScreen/CompanyScreen";
 import ContactScreen from "./screens/contactScreen/ContactScreen";
 import ServicesScreen from "./screens/servicesScreen/ServicesScreen";
+import ProtectedRoute from "./components/protectedRoute/ProtectedRoute";
 
 function App() {
   const userLogin = useSelector((state) => state.userLogin);
   const { userInfo } = userLogin;
-
-  if (!userInfo) {
-    return (
-      <Router>
-        <DemoHeader />
-        <main>
+  return (
+    <Router>
+      {userInfo ? <Header /> : <DemoHeader />}
+      <main className={`bg-${userInfo ? "dark" : "light"}`}>
+        <Switch>
+          <ProtectedRoute exact path="/bug/:id">
+            <BugDetailsScreen />
+          </ProtectedRoute>
+          <ProtectedRoute path="/bug/:id/edit">
+            <BugEditScreen />
+          </ProtectedRoute>
+          <ProtectedRoute path="/profile/settings">
+            <ProfileSettingsScreen />
+          </ProtectedRoute>
+          <ProtectedRoute exact path="/profile">
+            <ProfileScreen />
+          </ProtectedRoute>
           <Route exact path="/" component={LandingScreen} />
           <Route exact path="/about-us" component={AboutUsScreen} />
           <Route exact path="/blog" component={BlogScreen} />
@@ -37,32 +49,9 @@ function App() {
           <Route exact path="/services" component={ServicesScreen} />
           <Route path="/login" component={LoginScreen} />
           <Route path="/register" component={RegisterScreen} />
-        </main>
-        <DemoFooter />
-      </Router>
-    );
-  }
-
-  return (
-    <Router>
-      <Header />
-      <main className="bg-dark">
-        <Route exact path="/bug/:id" component={BugDetailsScreen} />
-        <Route path="/bug/:id/edit" component={BugEditScreen} />
-        <Route
-          path="/profile/settings"
-          component={ProfileSettingsScreen}
-        />
-        <Route exact path="/profile" component={ProfileScreen} />
-        <Route
-          exact
-          path="/search/:keyword/page/:pageNumber"
-          component={ProfileScreen}
-        />
-        <Route exact path="/page/:pageNumber" component={ProfileScreen} />
-        <Route exact path="/search/:keyword" component={ProfileScreen} />
+        </Switch>
       </main>
-      <Footer />
+      {userInfo ? <Footer /> : <DemoFooter />}
     </Router>
   );
 }

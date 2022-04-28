@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import "./BugDetailsScreen.scss";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import {
   listBugDetails,
@@ -12,9 +12,9 @@ import parse from "html-react-parser";
 import Loader from "../../components/Loader";
 import Message from "../../components/Message";
 
-const BugDetailsScreen = ({ match }) => {
+const BugDetailsScreen = () => {
   const dispatch = useDispatch();
-  const bugId = match.params.id;
+  const { id } = useParams();
   const [comment, setComment] = useState("");
 
   const bugDetails = useSelector((state) => state.bugDetails);
@@ -41,13 +41,13 @@ const BugDetailsScreen = ({ match }) => {
       setComment("");
       dispatch({ type: BUG_NOTES_RESET });
     }
-    dispatch(listBugDetails(bugId));
-  }, [dispatch, bugId, notesSuccess, deleteNoteSuccess]);
+    dispatch(listBugDetails(id));
+  }, [dispatch, id, notesSuccess, deleteNoteSuccess]);
 
   const notesSubmitHandler = (e) => {
     e.preventDefault();
     dispatch(
-      createBugNotes(bugId, {
+      createBugNotes(id, {
         comment,
       })
     );
@@ -91,7 +91,7 @@ const BugDetailsScreen = ({ match }) => {
               </span>
             </div>
             <div className="info-wrapper mb-3">
-              <Link className="btn btn-primary me-2" to={`/bug/${bugId}/edit`}>
+              <Link className="btn btn-primary me-2" to={`/bug/${id}/edit`}>
                 Edit
               </Link>
               <Link to="/profile" className="btn btn-secondary">
@@ -172,7 +172,7 @@ const BugDetailsScreen = ({ match }) => {
               {notesError && <Message variant="danger">{notesError}</Message>}
             </div>
             <button
-              className="btn btn-primary btn-sm"
+              className="btn btn-primary btn-sm my-2"
               type="button"
               data-bs-toggle="collapse"
               data-bs-target="#notes-form"

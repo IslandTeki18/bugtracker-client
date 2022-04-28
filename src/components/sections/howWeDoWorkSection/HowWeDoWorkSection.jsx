@@ -5,7 +5,7 @@ import { BASIC_PROCESS_STEPS } from "../../../utils/tempData";
 const HowWeDoWorkSection = () => {
   function renderBasicProcessSteps() {
     return BASIC_PROCESS_STEPS.map((step, idx) => (
-      <div className="row mb-4">
+      <div className="row mb-4" key={idx}>
         <div className="col-sm-2 d-flex justify-content-center pb-4 pb-sm-0">
           <div className="circle-bg">
             <h1 className="text-center text-primary">{idx + 1}</h1>

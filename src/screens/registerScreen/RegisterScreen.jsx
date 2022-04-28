@@ -42,7 +42,7 @@ const RegisterScreen = ({ history, location }) => {
               {error && <Message variant="danger">{error}</Message>}
               {message && <Message variant="danger">{message}</Message>}
               <form onSubmit={submitHandler}>
-                <div className="form-group">
+                <div className="form-group mb-2">
                   <label htmlFor="firstnameInput">Username</label>
                   <input
                     type="text"
@@ -53,7 +53,7 @@ const RegisterScreen = ({ history, location }) => {
                     onChange={(e) => setUsername(e.target.value)}
                   />
                 </div>
-                <div className="form-group">
+                <div className="form-group mb-2">
                   <label htmlFor="passwordInput">Password</label>
                   <input
                     type="password"
@@ -64,11 +64,11 @@ const RegisterScreen = ({ history, location }) => {
                     onChange={(e) => setPassword(e.target.value)}
                   />
                 </div>
-                <div className="form-group">
+                <div className="form-group mb-2">
                   <label htmlFor="confirmPasswordInput">Confirm Password</label>
                   <input
                     type="password"
-                    className="form-control"
+                    className="form-control mb-2"
                     id="confirmPasswordInput"
                     placeholder="Confirma Password..."
                     value={confirmPassword}
@@ -80,10 +80,10 @@ const RegisterScreen = ({ history, location }) => {
                 </button>
               </form>
               <p className="pt-5">
-                Have an account?{" "}
-                <Link to="/" className="">
+                Have an account?
+                <Link to="/login" className="mx-1">
                   Login
-                </Link>{" "}
+                </Link>
                 here!
               </p>
             </div>
