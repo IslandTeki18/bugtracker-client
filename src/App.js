@@ -1,4 +1,5 @@
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import { useEffect } from "react";
 import { useSelector } from "react-redux";
 // Header and Footer Components
 import Header from "./components/Header";
@@ -24,6 +25,7 @@ import ProtectedRoute from "./components/protectedRoute/ProtectedRoute";
 function App() {
   const userLogin = useSelector((state) => state.userLogin);
   const { userInfo } = userLogin;
+  useEffect(() => {}, [userInfo]);
   return (
     <Router>
       {userInfo ? <Header /> : <DemoHeader />}
